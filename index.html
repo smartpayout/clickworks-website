@@ -4,94 +4,180 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SmartPayout</title>
+
   <style>
-    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: #0b1020;
       color: white;
     }
-    header {
-      padding: 22px;
-      background: #111936;
-      text-align: center;
-    }
-    header h1 { margin: 0; }
+
     .container {
       max-width: 500px;
-      margin: 30px auto;
-      padding: 20px;
+      margin: 0 auto;
+      padding: 25px 18px;
     }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
     .card {
-      background: #151d38;
-      padding: 25px;
-      border-radius: 16px;
-      margin-bottom: 20px;
+      background: #151d35;
+      padding: 20px;
+      border-radius: 14px;
+      margin-bottom: 18px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
     }
-    input, button {
-      width: 100%;
-      padding: 14px;
-      margin-top: 12px;
-      border-radius: 10px;
-      border: none;
-      font-size: 16px;
+
+    h2 {
+      margin-top: 0;
     }
-    input {
-      background: #252e4d;
-      color: white;
-    }
-    button {
-      background: #20c56b;
-      color: white;
-      font-weight: bold;
-    }
-    button:hover { opacity: .9; }
+
     .balance {
-      font-size: 32px;
+      font-size: 28px;
       font-weight: bold;
       margin-top: 10px;
     }
+
+    .balance small {
+      font-size: 17px;
+      opacity: 0.8;
+    }
+
     .note {
-      color: #aeb7d0;
+      color: #b9c1d9;
       font-size: 14px;
       line-height: 1.5;
+    }
+
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 13px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      background: #21c45b;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    #message {
+      margin-top: 12px;
+      font-size: 14px;
+      text-align: center;
     }
   </style>
 </head>
 
 <body>
 
-<header>
-  <h1>SmartPayout</h1>
-  <p>Secure payment platform</p>
-</header>
+  <div class="container">
 
-<div class="container">
+    <h1>SmartPayout</h1>
 
-  <div class="card">
-    <h2>Account Balance</h2>
-    <div class="balance">KES 0.00</div>
+    <div class="card">
+      <h2>Account Balance</h2>
+
+      <div class="balance">
+        KES 0.00<br>
+        <small>USD $0.00</small>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Deposit</h2>
+
+      <p class="note">
+        Enter your M-Pesa number and the amount you want to deposit.
+      </p>
+
+      <p class="note">
+        Minimum deposit: <strong>USD $10.33</strong>
+      </p>
+
+      <input
+        type="tel"
+        id="phone"
+        placeholder="M-Pesa phone number"
+      >
+
+      <input
+        type="number"
+        id="amount"
+        placeholder="Amount (KES)"
+        min="0"
+        step="0.01"
+      >
+
+      <button onclick="validateDeposit()">
+        Deposit with M-Pesa
+      </button>
+
+      <p id="message"></p>
+
+      <p class="note">
+        Payment will only be credited after the payment provider confirms
+        the transaction.
+      </p>
+    </div>
+
   </div>
 
-  <div class="card">
-    <h2>Deposit</h2>
-    <p class="note">
-      Enter your M-Pesa number and the amount you want to deposit.
-    </p>
+  <script>
+    // Minimum deposit in USD
+    const MINIMUM_USD = 10.33;
 
-    <input type="tel" placeholder="M-Pesa phone number">
-    <input type="number" placeholder="Amount (KES)">
+    // Temporary exchange rate.
+    // Replace this with a live exchange-rate/payment API later.
+    const USD_TO_KES = 129.00;
 
-    <button>Deposit with M-Pesa</button>
+    function validateDeposit() {
+      const amount = parseFloat(document.getElementById("amount").value);
+      const message = document.getElementById("message");
 
-    <p class="note">
-      Payment will only be credited after the payment provider confirms
-      the transaction.
-    </p>
-  </div>
+      if (isNaN(amount) || amount <= 0) {
+        message.textContent = "Please enter a valid amount.";
+        return;
+      }
 
-</div>
+      const usdAmount = amount / USD_TO_KES;
+
+      if (usdAmount < MINIMUM_USD) {
+        message.textContent =
+          "Minimum deposit is USD $10.33 (approximately KES " +
+          (MINIMUM_USD * USD_TO_KES).toFixed(2) +
+          ").";
+        return;
+      }
+
+      message.textContent =
+        "Deposit amount: KES " +
+        amount.toFixed(2) +
+        " ≈ USD $" +
+        usdAmount.toFixed(2) +
+        ". Payment confirmation is required.";
+    }
+  </script>
 
 </body>
 </html>
+
