@@ -1,1 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartPayout</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b1020;
+      color: white;
+    }
+    header {
+      padding: 22px;
+      background: #111936;
+      text-align: center;
+    }
+    header h1 { margin: 0; }
+    .container {
+      max-width: 500px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+    .card {
+      background: #151d38;
+      padding: 25px;
+      border-radius: 16px;
+      margin-bottom: 20px;
+    }
+    input, button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 12px;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+    }
+    input {
+      background: #252e4d;
+      color: white;
+    }
+    button {
+      background: #20c56b;
+      color: white;
+      font-weight: bold;
+    }
+    button:hover { opacity: .9; }
+    .balance {
+      font-size: 32px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .note {
+      color: #aeb7d0;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
 
+<body>
+
+<header>
+  <h1>SmartPayout</h1>
+  <p>Secure payment platform</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h2>Account Balance</h2>
+    <div class="balance">KES 0.00</div>
+  </div>
+
+  <div class="card">
+    <h2>Deposit</h2>
+    <p class="note">
+      Enter your M-Pesa number and the amount you want to deposit.
+    </p>
+
+    <input type="tel" placeholder="M-Pesa phone number">
+    <input type="number" placeholder="Amount (KES)">
+
+    <button>Deposit with M-Pesa</button>
+
+    <p class="note">
+      Payment will only be credited after the payment provider confirms
+      the transaction.
+    </p>
+  </div>
+
+</div>
+
+</body>
+</html>
