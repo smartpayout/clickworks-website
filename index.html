@@ -1,657 +1,3938 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SmartPayout</title>
 
+<!-- PAYSTACK INLINE JS V2 -->
+<script src="https://js.paystack.co/v2/inline.js"></script>
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
+
 :root{
---bg:#020817;--panel:#071426;--panel2:#091b30;--line:#173451;
---blue:#238cff;--cyan:#08cce5;--green:#00d997;--red:#ff416b;
---text:#f4f8ff;--muted:#7789a1
+--bg:#020817;
+--panel:#071426;
+--panel2:#091b30;
+--line:#173451;
+--blue:#238cff;
+--cyan:#08cce5;
+--green:#00d997;
+--red:#ff416b;
+--text:#f4f8ff;
+--muted:#7789a1
 }
-body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+
+body{
+font-family:Arial,sans-serif;
+background:var(--bg);
+color:var(--text);
+overflow-x:hidden
+}
+
 button,input{font-family:inherit}
 button{cursor:pointer}
 button:disabled{opacity:.55}
 
 /* LANDING */
-.header{height:74px;position:sticky;top:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 35px;background:#020817ee;border-bottom:1px solid #18304b;backdrop-filter:blur(15px)}
-.logoBox{display:flex;align-items:center;gap:10px}.logoIcon{width:43px;height:43px;border-radius:12px;background:linear-gradient(135deg,#2692ff,#1763ef);display:grid;place-items:center;font-size:23px;font-weight:bold}.logo{font-size:21px;font-weight:800}
-.openBtn,.primary{border:0;background:linear-gradient(135deg,#2692ff,#1878ef);color:white;padding:13px 20px;border-radius:11px;font-weight:bold}
-.hero{min-height:640px;text-align:center;padding:90px 18px 55px;background:radial-gradient(circle at 50% 20%,#1475ff35,transparent 36%),linear-gradient(#061426,#030b19)}
-.eyebrow{color:#1594ff;font-weight:bold;letter-spacing:2px;font-size:12px;margin-bottom:18px}
-.hero h1{font-size:clamp(45px,8vw,78px);line-height:.98;letter-spacing:-4px}.hero h1 span{background:linear-gradient(90deg,#238dff,#08cce5);-webkit-background-clip:text;color:transparent}
-.heroText{max-width:650px;margin:28px auto;color:#8291a8;font-size:18px;line-height:1.6}.heroButtons{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}.secondary{padding:13px 20px;border-radius:11px;border:1px solid #213553;background:transparent;color:white;font-weight:bold}
-.chips{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-top:28px}.chip{border:1px solid #142942;background:#071426;color:#718198;padding:8px 13px;border-radius:30px;font-size:11px}
-.marketWrap{max-width:1000px;margin:-25px auto 0;padding:0 15px}.marketCard{background:#071426;border:1px solid #152943;border-radius:20px;padding:17px;box-shadow:0 25px 70px #0005}
-.marketTop{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.marketName{display:flex;align-items:center;gap:10px}.coin{width:42px;height:42px;border-radius:50%;background:#f7931a;display:grid;place-items:center;font-weight:bold;font-size:19px}.live{display:inline-block;margin-top:4px;background:#00d99718;color:#00d997;padding:4px 7px;border-radius:15px;font-size:9px;font-weight:bold}.price{color:#00d997;font-size:22px;font-weight:bold}.change{color:#00d997;text-align:right;font-size:12px;margin-top:3px}
-.chartBox{height:290px;background:#030b19;border-radius:13px;overflow:hidden;position:relative}.chartBox canvas{width:100%;height:100%}.chartLabel{position:absolute;top:12px;left:12px;color:#52647d;font-size:9px}
-.section{max-width:1050px;margin:95px auto;padding:0 15px}.sectionHead{text-align:center;margin-bottom:40px}.sectionHead small{color:#168fff;font-weight:bold;letter-spacing:2px;font-size:11px}.sectionHead h2{font-size:clamp(34px,6vw,54px);margin-top:12px}
-.features,.steps{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}.feature,.step{padding:30px;background:#071426;border:1px solid #14263d;border-radius:20px}.featureIcon{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#298fff,#1571ef);display:grid;place-items:center;font-size:23px;margin-bottom:28px}.feature h3,.step h3{font-size:21px;margin-bottom:10px}.feature p,.step p{color:#718198;font-size:14px;line-height:1.6}.steps{grid-template-columns:repeat(3,1fr)}.stepNumber{font-size:50px;font-weight:900;background:linear-gradient(90deg,#148fff,#04c6e5);-webkit-background-clip:text;color:transparent;margin-bottom:22px}
-.stats{background:#071426;border:1px solid #14263d;border-radius:20px;padding:40px 20px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}.stat strong{display:block;color:#0aaeea;font-size:35px;margin-bottom:8px}.stat span{color:#718198;font-size:12px}
-.cta{margin:90px 15px}.ctaBox{max-width:1000px;margin:auto;padding:60px 20px;text-align:center;border-radius:25px;background:linear-gradient(135deg,#268cff,#2879ed)}.ctaBox h2{font-size:clamp(38px,7vw,62px);margin-bottom:20px}.ctaBox p{margin:0 auto 28px;max-width:580px;color:#dceaff;line-height:1.6}.ctaBox button{border:0;background:white;color:#2383f4;padding:15px 27px;border-radius:11px;font-weight:bold}
+
+.header{
+height:74px;
+position:sticky;
+top:0;
+z-index:1000;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 35px;
+background:#020817ee;
+border-bottom:1px solid #18304b;
+backdrop-filter:blur(15px)
+}
+
+.logoBox{
+display:flex;
+align-items:center;
+gap:10px
+}
+
+.logoIcon{
+width:43px;
+height:43px;
+border-radius:12px;
+background:linear-gradient(135deg,#2692ff,#1763ef);
+display:grid;
+place-items:center;
+font-size:23px;
+font-weight:bold
+}
+
+.logo{
+font-size:21px;
+font-weight:800
+}
+
+.openBtn,.primary{
+border:0;
+background:linear-gradient(135deg,#2692ff,#1878ef);
+color:white;
+padding:13px 20px;
+border-radius:11px;
+font-weight:bold
+}
+
+.hero{
+min-height:640px;
+text-align:center;
+padding:90px 18px 55px;
+background:
+radial-gradient(circle at 50% 20%,#1475ff35,transparent 36%),
+linear-gradient(#061426,#030b19)
+}
+
+.eyebrow{
+color:#1594ff;
+font-weight:bold;
+letter-spacing:2px;
+font-size:12px;
+margin-bottom:18px
+}
+
+.hero h1{
+font-size:clamp(45px,8vw,78px);
+line-height:.98;
+letter-spacing:-4px
+}
+
+.hero h1 span{
+background:linear-gradient(90deg,#238dff,#08cce5);
+-webkit-background-clip:text;
+color:transparent
+}
+
+.heroText{
+max-width:650px;
+margin:28px auto;
+color:#8291a8;
+font-size:18px;
+line-height:1.6
+}
+
+.heroButtons{
+display:flex;
+justify-content:center;
+gap:12px;
+flex-wrap:wrap
+}
+
+.secondary{
+padding:13px 20px;
+border-radius:11px;
+border:1px solid #213553;
+background:transparent;
+color:white;
+font-weight:bold
+}
+
+.chips{
+display:flex;
+justify-content:center;
+gap:9px;
+flex-wrap:wrap;
+margin-top:28px
+}
+
+.chip{
+border:1px solid #142942;
+background:#071426;
+color:#718198;
+padding:8px 13px;
+border-radius:30px;
+font-size:11px
+}
+
+.marketWrap{
+max-width:1000px;
+margin:-25px auto 0;
+padding:0 15px
+}
+
+.marketCard{
+background:#071426;
+border:1px solid #152943;
+border-radius:20px;
+padding:17px;
+box-shadow:0 25px 70px #0005
+}
+
+.marketTop{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:14px
+}
+
+.marketName{
+display:flex;
+align-items:center;
+gap:10px
+}
+
+.coin{
+width:42px;
+height:42px;
+border-radius:50%;
+background:#f7931a;
+display:grid;
+place-items:center;
+font-weight:bold;
+font-size:19px
+}
+
+.live{
+display:inline-block;
+margin-top:4px;
+background:#00d99718;
+color:#00d997;
+padding:4px 7px;
+border-radius:15px;
+font-size:9px;
+font-weight:bold
+}
+
+.price{
+color:#00d997;
+font-size:22px;
+font-weight:bold
+}
+
+.change{
+color:#00d997;
+text-align:right;
+font-size:12px;
+margin-top:3px
+}
+
+.chartBox{
+height:290px;
+background:#030b19;
+border-radius:13px;
+overflow:hidden;
+position:relative
+}
+
+.chartBox canvas{
+width:100%;
+height:100%
+}
+
+.chartLabel{
+position:absolute;
+top:12px;
+left:12px;
+color:#52647d;
+font-size:9px
+}
+
+.section{
+max-width:1050px;
+margin:95px auto;
+padding:0 15px
+}
+
+.sectionHead{
+text-align:center;
+margin-bottom:40px
+}
+
+.sectionHead small{
+color:#168fff;
+font-weight:bold;
+letter-spacing:2px;
+font-size:11px
+}
+
+.sectionHead h2{
+font-size:clamp(34px,6vw,54px);
+margin-top:12px
+}
+
+.features,.steps{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:15px
+}
+
+.feature,.step{
+padding:30px;
+background:#071426;
+border:1px solid #14263d;
+border-radius:20px
+}
+
+.featureIcon{
+width:52px;
+height:52px;
+border-radius:14px;
+background:linear-gradient(135deg,#298fff,#1571ef);
+display:grid;
+place-items:center;
+font-size:23px;
+margin-bottom:28px
+}
+
+.feature h3,.step h3{
+font-size:21px;
+margin-bottom:10px
+}
+
+.feature p,.step p{
+color:#718198;
+font-size:14px;
+line-height:1.6
+}
+
+.steps{
+grid-template-columns:repeat(3,1fr)
+}
+
+.stepNumber{
+font-size:50px;
+font-weight:900;
+background:linear-gradient(90deg,#148fff,#04c6e5);
+-webkit-background-clip:text;
+color:transparent;
+margin-bottom:22px
+}
+
+.stats{
+background:#071426;
+border:1px solid #14263d;
+border-radius:20px;
+padding:40px 20px;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+text-align:center
+}
+
+.stat strong{
+display:block;
+color:#0aaeea;
+font-size:35px;
+margin-bottom:8px
+}
+
+.stat span{
+color:#718198;
+font-size:12px
+}
+
+.cta{
+margin:90px 15px
+}
+
+.ctaBox{
+max-width:1000px;
+margin:auto;
+padding:60px 20px;
+text-align:center;
+border-radius:25px;
+background:linear-gradient(135deg,#268cff,#2879ed)
+}
+
+.ctaBox h2{
+font-size:clamp(38px,7vw,62px);
+margin-bottom:20px
+}
+
+.ctaBox p{
+margin:0 auto 28px;
+max-width:580px;
+color:#dceaff;
+line-height:1.6
+}
+
+.ctaBox button{
+border:0;
+background:white;
+color:#2383f4;
+padding:15px 27px;
+border-radius:11px;
+font-weight:bold
+}
 
 /* DASHBOARD */
-#dashboard{display:none;min-height:100vh;background:#020914}.dashboard{max-width:1080px;margin:auto;padding:14px 12px 45px}
-.dashTop{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.dashLeft{display:flex;gap:7px;align-items:center}.back,.topBtn{border:1px solid #18304e;background:#071426;color:#b6c4d7;padding:8px 10px;border-radius:8px;font-size:10px}.dashName{font-size:16px;font-weight:bold}.topActions{display:flex;gap:5px}
-.account{display:flex;gap:5px;margin-bottom:10px}.account button{flex:1;padding:9px;border:1px solid #19324f;background:#071426;color:#7d8da4;border-radius:8px;font-weight:bold;font-size:10px}.account .active{color:white;background:#167cf4}
-.balanceRow{display:grid;grid-template-columns:1fr auto;gap:8px;margin-bottom:9px}.balance{background:#071426;border:1px solid #18304e;border-radius:12px;padding:13px}.balance small{color:#718198;font-size:9px}.balance h2{font-size:25px;margin-top:5px}.balanceBtns{display:flex;gap:6px}.action{border:0;background:#157ff2;color:white;border-radius:8px;padding:10px 13px;font-size:10px;font-weight:bold}.action.dark{background:#263b55}
 
-/* FOREX TERMINAL */
-.forexCard{background:#071426;border:1px solid #18304e;border-radius:13px;overflow:hidden;margin-bottom:9px}
-.forexHead{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;border-bottom:1px solid #122942}.pair{display:flex;align-items:center;gap:8px}.pairIcon{width:31px;height:31px;border-radius:50%;background:linear-gradient(135deg,#168cff,#06bfdc);display:grid;place-items:center;font-size:12px}.pairName{font-size:12px;font-weight:bold}.pairSub{font-size:8px;color:#657991;margin-top:2px}.pairPrice{text-align:right}.pairPrice strong{font-size:16px;color:#00d997}.pairPrice small{display:block;color:#00d997;font-size:9px}
-.pairs{display:flex;gap:4px;padding:7px;border-bottom:1px solid #122942;overflow:auto}.pairs button{white-space:nowrap;border:1px solid #18304e;background:#030b19;color:#788aa2;padding:6px 10px;border-radius:6px;font-size:9px}.pairs button.active{background:#167cf4;color:#fff}
-.timeframes{display:flex;gap:4px;padding:7px}.timeframes button{border:0;background:transparent;color:#657991;font-size:8px;padding:4px 7px}.timeframes button.active{color:#43a1ff;background:#0d2742;border-radius:5px}
-.forexChart{height:350px;background:#020914;position:relative}.forexChart canvas{width:100%;height:100%;display:block}.chartInfo{position:absolute;top:9px;left:10px;right:10px;display:flex;justify-content:space-between;pointer-events:none}.tag{background:#061326dd;border:1px solid #183b5b;border-radius:5px;padding:5px 7px;color:#7187a0;font-size:8px}.autoPL{background:#061326ed;border:1px solid #185052;border-radius:6px;padding:5px 8px;color:#8ba1b9;font-size:8px}.autoPL strong{color:#00d997;font-size:11px}
-.priceScale{position:absolute;right:3px;top:38px;bottom:15px;display:flex;flex-direction:column;justify-content:space-between;color:#52677e;font-size:7px;pointer-events:none}
-.scanner{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;padding:8px;border-top:1px solid #122942}.scan{background:#030b19;border:1px solid #152b45;border-radius:7px;padding:7px}.scan span{display:block;color:#63758c;font-size:7px;margin-bottom:3px}.scan strong{font-size:10px}.green{color:#00d997}.yellow{color:#ffca57}
+#dashboard{
+display:none;
+min-height:100vh;
+background:#020914
+}
+
+.dashboard{
+max-width:1080px;
+margin:auto;
+padding:14px 12px 45px
+}
+
+.dashTop{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:10px
+}
+
+.dashLeft{
+display:flex;
+gap:7px;
+align-items:center
+}
+
+.back,.topBtn{
+border:1px solid #18304e;
+background:#071426;
+color:#b6c4d7;
+padding:8px 10px;
+border-radius:8px;
+font-size:10px
+}
+
+.dashName{
+font-size:16px;
+font-weight:bold
+}
+
+.topActions{
+display:flex;
+gap:5px
+}
+
+.account{
+display:flex;
+gap:5px;
+margin-bottom:10px
+}
+
+.account button{
+flex:1;
+padding:9px;
+border:1px solid #19324f;
+background:#071426;
+color:#7d8da4;
+border-radius:8px;
+font-weight:bold;
+font-size:10px
+}
+
+.account .active{
+color:white;
+background:#167cf4
+}
+
+.balanceRow{
+display:grid;
+grid-template-columns:1fr auto;
+gap:8px;
+margin-bottom:9px
+}
+
+.balance{
+background:#071426;
+border:1px solid #18304e;
+border-radius:12px;
+padding:13px
+}
+
+.balance small{
+color:#718198;
+font-size:9px
+}
+
+.balance h2{
+font-size:25px;
+margin-top:5px
+}
+
+.balanceBtns{
+display:flex;
+gap:6px
+}
+
+.action{
+border:0;
+background:#157ff2;
+color:white;
+border-radius:8px;
+padding:10px 13px;
+font-size:10px;
+font-weight:bold
+}
+
+.action.dark{
+background:#263b55
+}
+
+/* FOREX */
+
+.forexCard{
+background:#071426;
+border:1px solid #18304e;
+border-radius:13px;
+overflow:hidden;
+margin-bottom:9px
+}
+
+.forexHead{
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:11px 13px;
+border-bottom:1px solid #122942
+}
+
+.pair{
+display:flex;
+align-items:center;
+gap:8px
+}
+
+.pairIcon{
+width:31px;
+height:31px;
+border-radius:50%;
+background:linear-gradient(135deg,#168cff,#06bfdc);
+display:grid;
+place-items:center;
+font-size:12px
+}
+
+.pairName{
+font-size:12px;
+font-weight:bold
+}
+
+.pairSub{
+font-size:8px;
+color:#657991;
+margin-top:2px
+}
+
+.pairPrice{
+text-align:right
+}
+
+.pairPrice strong{
+font-size:16px;
+color:#00d997
+}
+
+.pairPrice small{
+display:block;
+color:#00d997;
+font-size:9px
+}
+
+.pairs{
+display:flex;
+gap:4px;
+padding:7px;
+border-bottom:1px solid #122942;
+overflow:auto
+}
+
+.pairs button{
+white-space:nowrap;
+border:1px solid #18304e;
+background:#030b19;
+color:#788aa2;
+padding:6px 10px;
+border-radius:6px;
+font-size:9px
+}
+
+.pairs button.active{
+background:#167cf4;
+color:#fff
+}
+
+.timeframes{
+display:flex;
+gap:4px;
+padding:7px
+}
+
+.timeframes button{
+border:0;
+background:transparent;
+color:#657991;
+font-size:8px;
+padding:4px 7px
+}
+
+.timeframes button.active{
+color:#43a1ff;
+background:#0d2742;
+border-radius:5px
+}
+
+.forexChart{
+height:350px;
+background:#020914;
+position:relative
+}
+
+.forexChart canvas{
+width:100%;
+height:100%;
+display:block
+}
+
+.chartInfo{
+position:absolute;
+top:9px;
+left:10px;
+right:10px;
+display:flex;
+justify-content:space-between;
+pointer-events:none
+}
+
+.tag{
+background:#061326dd;
+border:1px solid #183b5b;
+border-radius:5px;
+padding:5px 7px;
+color:#7187a0;
+font-size:8px
+}
+
+.autoPL{
+background:#061326ed;
+border:1px solid #185052;
+border-radius:6px;
+padding:5px 8px;
+color:#8ba1b9;
+font-size:8px
+}
+
+.autoPL strong{
+color:#00d997;
+font-size:11px
+}
+
+.priceScale{
+position:absolute;
+right:3px;
+top:38px;
+bottom:15px;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+color:#52677e;
+font-size:7px;
+pointer-events:none
+}
+
+.scanner{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:5px;
+padding:8px;
+border-top:1px solid #122942
+}
+
+.scan{
+background:#030b19;
+border:1px solid #152b45;
+border-radius:7px;
+padding:7px
+}
+
+.scan span{
+display:block;
+color:#63758c;
+font-size:7px;
+margin-bottom:3px
+}
+
+.scan strong{
+font-size:10px
+}
+
+.green{
+color:#00d997
+}
+
+.yellow{
+color:#ffca57
+}
 
 /* TRADE */
-.tradePanel{background:#071426;border:1px solid #18304e;border-radius:13px;padding:12px;margin-bottom:9px}.tradeTabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-bottom:9px}.tradeTabs button{padding:8px;border:1px solid #18304e;background:#030b19;color:#8290a5;border-radius:6px;font-size:8px}.tradeTabs .active{background:#1685fa;color:#fff}
-.digits{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;margin-bottom:9px}.digit{position:relative;padding:8px 2px 17px;text-align:center;background:#030b19;border:1px solid #172d49;border-radius:5px;color:#aebbd0;font-size:9px}.digit.active{border-color:#238cff;background:#0a213c}.digitArrow{position:absolute;bottom:2px;left:50%;transform:translateX(-50%);color:#16e6a0;opacity:0}.digit.active .digitArrow{opacity:1}
-.controls{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}.control{background:#030b19;border:1px solid #18304e;border-radius:7px;padding:8px}.control label{display:block;color:#718198;font-size:7px;margin-bottom:4px}.control input{width:100%;background:#071426;border:1px solid #193653;color:white;padding:6px;border-radius:5px;font-size:9px}
-.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:7px}.sum{background:#030b19;border:1px solid #172d49;border-radius:6px;padding:7px}.sum span{display:block;color:#63758c;font-size:7px;margin-bottom:3px}.sum strong{font-size:10px}.profit{color:#00d997}.loss{color:#ff416b}
-.auto{width:100%;margin-top:7px;padding:10px;border:0;border-radius:7px;background:#157ff2;color:#fff;font-weight:bold;font-size:9px}.auto.running{background:#d92d55}.tradeBtns{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}.tradeBtns button{border:0;color:#fff;padding:10px;border-radius:7px;font-weight:bold;font-size:9px}.higher{background:#079b72}.lower{background:#e82d55}.notice{color:#63738a;font-size:7px;margin-top:7px;line-height:1.5}
-.history{background:#071426;border:1px solid #18304e;border-radius:13px;padding:12px}.historyHead{display:flex;justify-content:space-between;margin-bottom:5px}.history h3{font-size:11px}.clear{background:none;border:0;color:#57708c;font-size:8px}.historyRow{display:flex;justify-content:space-between;padding:8px 3px;border-bottom:1px solid #102238;color:#8998ac;font-size:8px}
+
+.tradePanel{
+background:#071426;
+border:1px solid #18304e;
+border-radius:13px;
+padding:12px;
+margin-bottom:9px
+}
+
+.tradeTabs{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:4px;
+margin-bottom:9px
+}
+
+.tradeTabs button{
+padding:8px;
+border:1px solid #18304e;
+background:#030b19;
+color:#8290a5;
+border-radius:6px;
+font-size:8px
+}
+
+.tradeTabs .active{
+background:#1685fa;
+color:#fff
+}
+
+.digits{
+display:grid;
+grid-template-columns:repeat(10,1fr);
+gap:3px;
+margin-bottom:9px
+}
+
+.digit{
+position:relative;
+padding:8px 2px 17px;
+text-align:center;
+background:#030b19;
+border:1px solid #172d49;
+border-radius:5px;
+color:#aebbd0;
+font-size:9px
+}
+
+.digit.active{
+border-color:#238cff;
+background:#0a213c
+}
+
+.digitArrow{
+position:absolute;
+bottom:2px;
+left:50%;
+transform:translateX(-50%);
+color:#16e6a0;
+opacity:0
+}
+
+.digit.active .digitArrow{
+opacity:1
+}
+
+.controls{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:5px
+}
+
+.control{
+background:#030b19;
+border:1px solid #18304e;
+border-radius:7px;
+padding:8px
+}
+
+.control label{
+display:block;
+color:#718198;
+font-size:7px;
+margin-bottom:4px
+}
+
+.control input{
+width:100%;
+background:#071426;
+border:1px solid #193653;
+color:white;
+padding:6px;
+border-radius:5px;
+font-size:9px
+}
+
+.summary{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:5px;
+margin-top:7px
+}
+
+.sum{
+background:#030b19;
+border:1px solid #172d49;
+border-radius:6px;
+padding:7px
+}
+
+.sum span{
+display:block;
+color:#63758c;
+font-size:7px;
+margin-bottom:3px
+}
+
+.sum strong{
+font-size:10px
+}
+
+.profit{
+color:#00d997
+}
+
+.loss{
+color:#ff416b
+}
+
+.auto{
+width:100%;
+margin-top:7px;
+padding:10px;
+border:0;
+border-radius:7px;
+background:#157ff2;
+color:#fff;
+font-weight:bold;
+font-size:9px
+}
+
+.auto.running{
+background:#d92d55
+}
+
+.tradeBtns{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:6px;
+margin-top:6px
+}
+
+.tradeBtns button{
+border:0;
+color:#fff;
+padding:10px;
+border-radius:7px;
+font-weight:bold;
+font-size:9px
+}
+
+.higher{
+background:#079b72
+}
+
+.lower{
+background:#e82d55
+}
+
+.notice{
+color:#63738a;
+font-size:7px;
+margin-top:7px;
+line-height:1.5
+}
+
+.history{
+background:#071426;
+border:1px solid #18304e;
+border-radius:13px;
+padding:12px
+}
+
+.historyHead{
+display:flex;
+justify-content:space-between;
+margin-bottom:5px
+}
+
+.history h3{
+font-size:11px
+}
+
+.clear{
+background:none;
+border:0;
+color:#57708c;
+font-size:8px
+}
+
+.historyRow{
+display:flex;
+justify-content:space-between;
+padding:8px 3px;
+border-bottom:1px solid #102238;
+color:#8998ac;
+font-size:8px
+}
 
 /* MODALS */
-.modal{display:none;position:fixed;inset:0;z-index:5000;background:#000b;align-items:center;justify-content:center;padding:14px}.modal.show{display:flex}.modalBox{width:min(460px,100%);max-height:90vh;overflow:auto;background:#071426;border:1px solid #1a3858;border-radius:15px;padding:17px;box-shadow:0 25px 80px #000b}.modalHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}.modalHead h3{font-size:15px}.close{background:#0d2139;border:1px solid #1b3857;color:#9db0c6;width:27px;height:27px;border-radius:7px}.group{margin-bottom:10px}.group label{display:block;color:#718198;font-size:9px;margin-bottom:5px}.group input{width:100%;background:#030b19;border:1px solid #193653;color:#fff;padding:10px;border-radius:7px;font-size:10px}.info{background:#030b19;border:1px solid #18304e;padding:9px;border-radius:7px;color:#8091a8;font-size:9px;line-height:1.5;margin-bottom:10px}.info strong{color:white}.full{width:100%;border:0;background:#157ff2;color:white;padding:10px;border-radius:7px;font-weight:bold;font-size:10px}.fee{background:#ff416b12;border:1px solid #ff416b40;color:#ff829c;padding:9px;border-radius:7px;font-size:9px;margin-bottom:10px}
-.refCode{background:#030b19;border:1px dashed #268cff;padding:14px;text-align:center;border-radius:9px;font-size:21px;font-weight:bold;letter-spacing:2px;color:#45a2ff;margin:12px 0}.two{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.chatMessages{height:275px;overflow:auto;background:#030b19;border:1px solid #18304e;border-radius:9px;padding:9px;margin-bottom:8px}.msg{max-width:85%;padding:8px 10px;border-radius:9px;margin-bottom:6px;font-size:9px;line-height:1.5}.msg.ai{background:#0b2037;color:#b9c8da}.msg.user{margin-left:auto;background:#167cf4}.chatRow{display:flex;gap:5px}.chatRow input{flex:1;background:#030b19;border:1px solid #193653;color:white;padding:9px;border-radius:7px;font-size:10px}.send{border:0;background:#157ff2;color:white;border-radius:7px;padding:0 12px;font-weight:bold}
-.support{text-align:center;background:#030b19;border:1px solid #18304e;padding:15px;border-radius:9px}.phone{font-size:20px;color:#45a2ff;font-weight:bold;margin:10px 0}
-.toast{position:fixed;top:11px;left:50%;transform:translate(-50%,-120px);z-index:9999;width:min(520px,92%);background:#071426;border:1px solid #1d4365;border-radius:9px;padding:10px 12px;box-shadow:0 18px 45px #0009;transition:.3s}.toast.show{transform:translate(-50%,0)}.toastTitle{font-size:10px;font-weight:bold}.toastText{font-size:8px;color:#899bb1;margin-top:3px}.toast.success{border-color:#087f61}.toast.success .toastTitle{color:#00d997}.toast.danger{border-color:#a51e3d}.toast.danger .toastTitle{color:#ff416b}.toast.info .toastTitle{color:#4ba4ff}
-footer{border-top:1px solid #102138;padding:40px 20px;text-align:center;color:#63738a;font-size:10px}footer strong{color:#198cff;font-size:15px}.footerLinks{display:flex;justify-content:center;gap:15px;flex-wrap:wrap;margin:15px}.footerLinks button{border:0;background:none;color:#718198;font-size:10px}
+
+.modal{
+display:none;
+position:fixed;
+inset:0;
+z-index:5000;
+background:#000b;
+align-items:center;
+justify-content:center;
+padding:14px
+}
+
+.modal.show{
+display:flex
+}
+
+.modalBox{
+width:min(460px,100%);
+max-height:90vh;
+overflow:auto;
+background:#071426;
+border:1px solid #1a3858;
+border-radius:15px;
+padding:17px;
+box-shadow:0 25px 80px #000b
+}
+
+.modalHead{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:13px
+}
+
+.modalHead h3{
+font-size:15px
+}
+
+.close{
+background:#0d2139;
+border:1px solid #1b3857;
+color:#9db0c6;
+width:27px;
+height:27px;
+border-radius:7px
+}
+
+.group{
+margin-bottom:10px
+}
+
+.group label{
+display:block;
+color:#718198;
+font-size:9px;
+margin-bottom:5px
+}
+
+.group input{
+width:100%;
+background:#030b19;
+border:1px solid #193653;
+color:#fff;
+padding:10px;
+border-radius:7px;
+font-size:10px
+}
+
+.info{
+background:#030b19;
+border:1px solid #18304e;
+padding:9px;
+border-radius:7px;
+color:#8091a8;
+font-size:9px;
+line-height:1.5;
+margin-bottom:10px
+}
+
+.info strong{
+color:white
+}
+
+.full{
+width:100%;
+border:0;
+background:#157ff2;
+color:white;
+padding:10px;
+border-radius:7px;
+font-weight:bold;
+font-size:10px
+}
+
+.fee{
+background:#ff416b12;
+border:1px solid #ff416b40;
+color:#ff829c;
+padding:9px;
+border-radius:7px;
+font-size:9px;
+margin-bottom:10px
+}
+
+.refCode{
+background:#030b19;
+border:1px dashed #268cff;
+padding:14px;
+text-align:center;
+border-radius:9px;
+font-size:21px;
+font-weight:bold;
+letter-spacing:2px;
+color:#45a2ff;
+margin:12px 0
+}
+
+.two{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:6px
+}
+
+.chatMessages{
+height:275px;
+overflow:auto;
+background:#030b19;
+border:1px solid #18304e;
+border-radius:9px;
+padding:9px;
+margin-bottom:8px
+}
+
+.msg{
+max-width:85%;
+padding:8px 10px;
+border-radius:9px;
+margin-bottom:6px;
+font-size:9px;
+line-height:1.5
+}
+
+.msg.ai{
+background:#0b2037;
+color:#b9c8da
+}
+
+.msg.user{
+margin-left:auto;
+background:#167cf4
+}
+
+.chatRow{
+display:flex;
+gap:5px
+}
+
+.chatRow input{
+flex:1;
+background:#030b19;
+border:1px solid #193653;
+color:white;
+padding:9px;
+border-radius:7px;
+font-size:10px
+}
+
+.send{
+border:0;
+background:#157ff2;
+color:white;
+border-radius:7px;
+padding:0 12px;
+font-weight:bold
+}
+
+.support{
+text-align:center;
+background:#030b19;
+border:1px solid #18304e;
+padding:15px;
+border-radius:9px
+}
+
+.phone{
+font-size:20px;
+color:#45a2ff;
+font-weight:bold;
+margin:10px 0
+}
+
+.toast{
+position:fixed;
+top:11px;
+left:50%;
+transform:translate(-50%,-120px);
+z-index:9999;
+width:min(520px,92%);
+background:#071426;
+border:1px solid #1d4365;
+border-radius:9px;
+padding:10px 12px;
+box-shadow:0 18px 45px #0009;
+transition:.3s
+}
+
+.toast.show{
+transform:translate(-50%,0)
+}
+
+.toastTitle{
+font-size:10px;
+font-weight:bold
+}
+
+.toastText{
+font-size:8px;
+color:#899bb1;
+margin-top:3px
+}
+
+.toast.success{
+border-color:#087f61
+}
+
+.toast.success .toastTitle{
+color:#00d997
+}
+
+.toast.danger{
+border-color:#a51e3d
+}
+
+.toast.danger .toastTitle{
+color:#ff416b
+}
+
+.toast.info .toastTitle{
+color:#4ba4ff
+}
+
+footer{
+border-top:1px solid #102138;
+padding:40px 20px;
+text-align:center;
+color:#63738a;
+font-size:10px
+}
+
+footer strong{
+color:#198cff;
+font-size:15px
+}
+
+.footerLinks{
+display:flex;
+justify-content:center;
+gap:15px;
+flex-wrap:wrap;
+margin:15px
+}
+
+.footerLinks button{
+border:0;
+background:none;
+color:#718198;
+font-size:10px
+}
+
+/* RESPONSIVE */
 
 @media(max-width:700px){
-.header{height:68px;padding:0 12px}.logo{font-size:18px}.logoIcon{width:39px;height:39px}.openBtn{padding:10px 13px;font-size:10px}
-.hero{padding:70px 16px 50px}.hero h1{font-size:46px;letter-spacing:-2.5px}.heroText{font-size:15px}.chartBox{height:235px}.features,.steps{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}
-.dashboard{padding:10px 8px}.dashName{display:none}.topBtn{padding:7px 8px;font-size:8px}.balanceRow{grid-template-columns:1fr}.balanceBtns{display:grid;grid-template-columns:1fr 1fr}.forexChart{height:280px}.scanner{grid-template-columns:1fr 1fr}.controls{grid-template-columns:1fr 1fr}.summary{grid-template-columns:1fr 1fr}
+
+.header{
+height:68px;
+padding:0 12px
 }
-@media(max-width:380px){.controls{grid-template-columns:1fr}.hero h1{font-size:40px}}
+
+.logo{
+font-size:18px
+}
+
+.logoIcon{
+width:39px;
+height:39px
+}
+
+.openBtn{
+padding:10px 13px;
+font-size:10px
+}
+
+.hero{
+padding:70px 16px 50px
+}
+
+.hero h1{
+font-size:46px;
+letter-spacing:-2.5px
+}
+
+.heroText{
+font-size:15px
+}
+
+.chartBox{
+height:235px
+}
+
+.features,.steps{
+grid-template-columns:1fr
+}
+
+.stats{
+grid-template-columns:1fr 1fr
+}
+
+.dashboard{
+padding:10px 8px
+}
+
+.dashName{
+display:none
+}
+
+.topBtn{
+padding:7px 8px;
+font-size:8px
+}
+
+.balanceRow{
+grid-template-columns:1fr
+}
+
+.balanceBtns{
+display:grid;
+grid-template-columns:1fr 1fr
+}
+
+.forexChart{
+height:280px
+}
+
+.scanner{
+grid-template-columns:1fr 1fr
+}
+
+.controls{
+grid-template-columns:1fr 1fr
+}
+
+.summary{
+grid-template-columns:1fr 1fr
+}
+}
+
+@media(max-width:380px){
+
+.controls{
+grid-template-columns:1fr
+}
+
+.hero h1{
+font-size:40px
+}
+
+}
 </style>
 </head>
 
 <body>
 
 <header class="header">
-<div class="logoBox"><div class="logoIcon">↗</div><div class="logo">SmartPayout</div></div>
+<div class="logoBox">
+<div class="logoIcon">↗</div>
+<div class="logo">SmartPayout</div>
+</div>
+
 <button class="openBtn" onclick="openPlatform()">Open Platform</button>
 </header>
 
 <!-- LANDING -->
+
 <main id="landing">
 
 <section class="hero">
+
 <div class="eyebrow">SMART TRADING PLATFORM</div>
-<h1>Trading Made<br>Easy, <span>Trade Smart</span></h1>
-<p class="heroText">Explore digital markets with a modern, fast and mobile-friendly trading experience. Start with the demo account and learn before risking real money.</p>
+
+<h1>
+Trading Made<br>
+Easy, <span>Trade Smart</span>
+</h1>
+
+<p class="heroText">
+Explore digital markets with a modern, fast and mobile-friendly
+trading experience. Start with the demo account and learn before
+risking real money.
+</p>
+
 <div class="heroButtons">
-<button class="primary" onclick="openPlatform()">Get Started — It's Free →</button>
-<button class="secondary" onclick="openPlatform()">▶ Try Demo</button>
+<button class="primary" onclick="openPlatform()">
+Get Started — It's Free →
+</button>
+
+<button class="secondary" onclick="openPlatform()">
+▶ Try Demo
+</button>
 </div>
+
 <div class="chips">
-<div class="chip">Fast interface</div><div class="chip">Demo trading</div><div class="chip">Smart tools</div><div class="chip">Mobile friendly</div>
+<div class="chip">Fast interface</div>
+<div class="chip">Demo trading</div>
+<div class="chip">Smart tools</div>
+<div class="chip">Mobile friendly</div>
 </div>
+
 </section>
 
-<!-- BTC STAYS ON LANDING -->
 <div class="marketWrap">
+
 <div class="marketCard">
+
 <div class="marketTop">
+
 <div class="marketName">
+
 <div class="coin">₿</div>
-<div><strong>BTC/USD</strong><div><span class="live">● SIMULATED PREVIEW</span></div></div>
+
+<div>
+<strong>BTC/USD</strong>
+
+<div>
+<span class="live">
+● SIMULATED PREVIEW
+</span>
 </div>
-<div><div class="price" id="btcPrice">$77,354</div><div class="change">+0.53%</div></div>
+
 </div>
+
+</div>
+
+<div>
+<div class="price" id="btcPrice">$77,354</div>
+<div class="change">+0.53%</div>
+</div>
+
+</div>
+
 <div class="chartBox">
-<div class="chartLabel">BTC/USD • LANDING PAGE PREVIEW</div>
+
+<div class="chartLabel">
+BTC/USD • LANDING PAGE PREVIEW
+</div>
+
 <canvas id="marketChart"></canvas>
+
 </div>
+
 </div>
+
 </div>
 
 <section class="section">
-<div class="sectionHead"><small>WHY SMARTPAYOUT</small><h2>Everything in one place</h2></div>
+
+<div class="sectionHead">
+<small>WHY SMARTPAYOUT</small>
+<h2>Everything in one place</h2>
+</div>
+
 <div class="features">
-<div class="feature"><div class="featureIcon">⚡</div><h3>Fast Experience</h3><p>A clean interface designed for quick navigation and smooth mobile use.</p></div>
-<div class="feature"><div class="featureIcon">🛡</div><h3>Security First</h3><p>Payment and real-money operations should be handled through secure backend systems.</p></div>
-<div class="feature"><div class="featureIcon">🌐</div><h3>Multiple Markets</h3><p>Explore supported demo markets from one unified trading workspace.</p></div>
-<div class="feature"><div class="featureIcon">📱</div><h3>Built for Mobile</h3><p>Monitor your demo account comfortably from your phone or computer.</p></div>
+
+<div class="feature">
+<div class="featureIcon">⚡</div>
+<h3>Fast Experience</h3>
+<p>
+A clean interface designed for quick navigation and smooth
+mobile use.
+</p>
 </div>
+
+<div class="feature">
+<div class="featureIcon">🛡</div>
+<h3>Security First</h3>
+<p>
+Payment and real-money operations should be handled through
+secure backend systems.
+</p>
+</div>
+
+<div class="feature">
+<div class="featureIcon">🌐</div>
+<h3>Multiple Markets</h3>
+<p>
+Explore supported demo markets from one unified trading
+workspace.
+</p>
+</div>
+
+<div class="feature">
+<div class="featureIcon">📱</div>
+<h3>Built for Mobile</h3>
+<p>
+Monitor your demo account comfortably from your phone or
+computer.
+</p>
+</div>
+
+</div>
+
 </section>
 
 <section class="section">
-<div class="sectionHead"><small>GET STARTED</small><h2>Three steps to your first trade</h2></div>
+
+<div class="sectionHead">
+<small>GET STARTED</small>
+<h2>Three steps to your first trade</h2>
+</div>
+
 <div class="steps">
-<div class="step"><div class="stepNumber">1</div><h3>Create Account</h3><p>Create your SmartPayout account and access the platform dashboard.</p></div>
-<div class="step"><div class="stepNumber">2</div><h3>Practice</h3><p>Use the demo balance to understand the interface and trading tools.</p></div>
-<div class="step"><div class="stepNumber">3</div><h3>Trade Responsibly</h3><p>Real-money trading requires genuine market execution and secure infrastructure.</p></div>
+
+<div class="step">
+<div class="stepNumber">1</div>
+<h3>Create Account</h3>
+<p>
+Create your SmartPayout account and access the platform
+dashboard.
+</p>
 </div>
+
+<div class="step">
+<div class="stepNumber">2</div>
+<h3>Practice</h3>
+<p>
+Use the demo balance to understand the interface and trading
+tools.
+</p>
+</div>
+
+<div class="step">
+<div class="stepNumber">3</div>
+<h3>Trade Responsibly</h3>
+<p>
+Real-money trading requires genuine market execution and
+secure infrastructure.
+</p>
+</div>
+
+</div>
+
 </section>
 
 <section class="section">
+
 <div class="stats">
-<div class="stat"><strong>24/7</strong><span>Platform access</span></div>
-<div class="stat"><strong>10+</strong><span>Demo markets</span></div>
-<div class="stat"><strong>1</strong><span>Trading terminal</span></div>
-<div class="stat"><strong>100%</strong><span>Demo control</span></div>
+
+<div class="stat">
+<strong>24/7</strong>
+<span>Platform access</span>
 </div>
+
+<div class="stat">
+<strong>10+</strong>
+<span>Demo markets</span>
+</div>
+
+<div class="stat">
+<strong>1</strong>
+<span>Trading terminal</span>
+</div>
+
+<div class="stat">
+<strong>100%</strong>
+<span>Demo control</span>
+</div>
+
+</div>
+
 </section>
 
 <section class="cta">
-<div class="ctaBox"><h2>Ready to start?</h2><p>Open the SmartPayout platform and explore the professional demo trading terminal.</p><button onclick="openPlatform()">Try Demo</button></div>
+
+<div class="ctaBox">
+
+<h2>Ready to start?</h2>
+
+<p>
+Open the SmartPayout platform and explore the professional
+demo trading terminal.
+</p>
+
+<button onclick="openPlatform()">Try Demo</button>
+
+</div>
+
 </section>
+
 </main>
 
 <!-- DASHBOARD -->
+
 <section id="dashboard">
+
 <div class="dashboard">
 
 <div class="dashTop">
+
 <div class="dashLeft">
-<button class="back" onclick="backHome()">← Home</button>
-<div class="dashName">SmartPayout Terminal</div>
+
+<button class="back" onclick="backHome()">
+← Home
+</button>
+
+<div class="dashName">
+SmartPayout Terminal
 </div>
+
+</div>
+
 <div class="topActions">
-<button class="topBtn" onclick="openReferral()">🔗 Referral</button>
-<button class="topBtn" onclick="openAI()">🤖 AI</button>
-<button class="topBtn" onclick="openSupport()">💬 Support</button>
+
+<button class="topBtn" onclick="openReferral()">
+🔗 Referral
+</button>
+
+<button class="topBtn" onclick="openAI()">
+🤖 AI
+</button>
+
+<button class="topBtn" onclick="openSupport()">
+💬 Support
+</button>
+
 </div>
+
 </div>
 
 <div class="account">
-<button id="demoTab" class="active" onclick="switchAccount('demo')">DEMO</button>
-<button id="realTab" onclick="switchAccount('real')">REAL</button>
+
+<button id="demoTab"
+class="active"
+onclick="switchAccount('demo')">
+DEMO
+</button>
+
+<button id="realTab"
+onclick="switchAccount('real')">
+REAL
+</button>
+
 </div>
 
 <div class="balanceRow">
+
 <div class="balance">
-<small id="balanceTitle">DEMO BALANCE</small>
-<h2 id="balance">$1,000.00</h2>
-</div>
-<div class="balanceBtns">
-<button class="action" onclick="openDeposit()">+ Deposit</button>
-<button class="action dark" onclick="openWithdraw()">Withdraw</button>
-</div>
+
+<small id="balanceTitle">
+DEMO BALANCE
+</small>
+
+<h2 id="balance">
+$1,000.00
+</h2>
+
 </div>
 
-<!-- FOREX DASHBOARD CHART -->
+<div class="balanceBtns">
+
+<button class="action" onclick="openDeposit()">
++ Deposit
+</button>
+
+<button class="action dark" onclick="openWithdraw()">
+Withdraw
+</button>
+
+</div>
+
+</div>
+
+<!-- FOREX -->
+
 <div class="forexCard">
 
 <div class="forexHead">
+
 <div class="pair">
-<div class="pairIcon" id="pairIcon">€</div>
+
+<div class="pairIcon" id="pairIcon">
+€
+</div>
+
 <div>
-<div class="pairName" id="pairName">EUR/USD</div>
-<div class="pairSub">Forex • Demo Market</div>
+
+<div class="pairName" id="pairName">
+EUR/USD
 </div>
+
+<div class="pairSub">
+Forex • Demo Market
 </div>
+
+</div>
+
+</div>
+
 <div class="pairPrice">
-<strong id="forexPrice">1.16482</strong>
-<small id="forexChange">+0.18%</small>
+
+<strong id="forexPrice">
+1.16482
+</strong>
+
+<small id="forexChange">
++0.18%
+</small>
+
 </div>
+
 </div>
 
 <div class="pairs">
-<button class="active" onclick="selectPair('EUR/USD','€',1.16482)">EUR/USD</button>
-<button onclick="selectPair('GBP/USD','£',1.35120)">GBP/USD</button>
-<button onclick="selectPair('USD/JPY','$',147.820)">USD/JPY</button>
-<button onclick="selectPair('AUD/USD','A$',0.66120)">AUD/USD</button>
-<button onclick="selectPair('USD/CAD','$',1.38510)">USD/CAD</button>
+
+<button class="active"
+onclick="selectPair('EUR/USD','€',1.16482,this)">
+EUR/USD
+</button>
+
+<button
+onclick="selectPair('GBP/USD','£',1.35120,this)">
+GBP/USD
+</button>
+
+<button
+onclick="selectPair('USD/JPY','$',147.820,this)">
+USD/JPY
+</button>
+
+<button
+onclick="selectPair('AUD/USD','A$',0.66120,this)">
+AUD/USD
+</button>
+
+<button
+onclick="selectPair('USD/CAD','$',1.38510,this)">
+USD/CAD
+</button>
+
 </div>
 
 <div class="timeframes">
-<button>1M</button><button>5M</button><button class="active">15M</button><button>30M</button><button>1H</button><button>4H</button><button>1D</button>
+
+<button>1M</button>
+<button>5M</button>
+<button class="active">15M</button>
+<button>30M</button>
+<button>1H</button>
+<button>4H</button>
+<button>1D</button>
+
 </div>
 
 <div class="forexChart">
+
 <div class="chartInfo">
-<div class="tag">FOREX DEMO • SIMULATED</div>
-<div class="autoPL">AUTO P/L <strong id="autoPL">+$0.00</strong></div>
+
+<div class="tag">
+FOREX DEMO • SIMULATED
+</div>
+
+<div class="autoPL">
+AUTO P/L
+<strong id="autoPL">+$0.00</strong>
+</div>
+
 </div>
 
 <div class="priceScale">
-<span id="scale1">1.1670</span><span>1.1660</span><span>1.1650</span><span>1.1640</span><span>1.1630</span><span>1.1620</span>
+
+<span id="scale1">1.1670</span>
+<span>1.1660</span>
+<span>1.1650</span>
+<span>1.1640</span>
+<span>1.1630</span>
+<span>1.1620</span>
+
 </div>
 
 <canvas id="forexChart"></canvas>
+
 </div>
 
 <div class="scanner">
-<div class="scan"><span>MARKET DIGIT</span><strong id="scanDigit">7</strong></div>
-<div class="scan"><span>CONTRACT</span><strong id="scanType">DIFFERS</strong></div>
-<div class="scan"><span>AI ANALYSIS</span><strong id="scanPrediction" class="green">DIFFERS</strong></div>
-<div class="scan"><span>STATUS</span><strong class="yellow">SIMULATION</strong></div>
+
+<div class="scan">
+<span>MARKET DIGIT</span>
+<strong id="scanDigit">7</strong>
+</div>
+
+<div class="scan">
+<span>TYPE</span>
+<strong id="scanType" class="yellow">HIGHER</strong>
+</div>
+
+<div class="scan">
+<span>PREDICTION</span>
+<strong id="scanPrediction" class="green">HIGHER</strong>
+</div>
+
+<div class="scan">
+<span>MODE</span>
+<strong>DEMO</strong>
 </div>
 
 </div>
 
-<!-- TRADING PANEL -->
+</div>
+
+<!-- TRADE PANEL -->
+
 <div class="tradePanel">
 
 <div class="tradeTabs">
-<button class="active">Digits</button>
-<button>Even / Odd</button>
-<button>Higher / Lower</button>
+
+<button class="active">DIGITS</button>
+<button>EVEN / ODD</button>
+<button>HIGHER / LOWER</button>
+
 </div>
 
 <div class="digits">
-<div class="digit">0 <span class="digitArrow">▲</span></div>
-<div class="digit">1 <span class="digitArrow">▲</span></div>
-<div class="digit">2 <span class="digitArrow">▲</span></div>
-<div class="digit">3 <span class="digitArrow">▲</span></div>
-<div class="digit">4 <span class="digitArrow">▲</span></div>
-<div class="digit">5 <span class="digitArrow">▲</span></div>
-<div class="digit">6 <span class="digitArrow">▲</span></div>
-<div class="digit">7 <span class="digitArrow">▲</span></div>
-<div class="digit">8 <span class="digitArrow">▲</span></div>
-<div class="digit">9 <span class="digitArrow">▲</span></div>
+
+<div class="digit active">
+0
+<span class="digitArrow">▼</span>
+</div>
+
+<div class="digit">
+1
+<span class="digitArrow">▼</span>
+</div>
+
+<div class="digit">
+2
+<span class="digitArrow">▼</span>
+</div>
+
+<div class="digit">
+3
+<span class="digitArrow">▼</span>
+</div>
+
+<div class="digit">
+4
+<span class="digitArrow">▼</span>
+</div>
+
+<div class="digit">
+5
+<span class="digitArrow">▼</span>
+</div>
+
+<div class="digit">
+6
+<span class="digitArrow">▼</span>
+</div>
+
+<div class="digit">
+7
+<span class="digitArrow">▼</span>
+</div>
+
+<div class="digit">
+8
+<span class="digitArrow">▼</span>
+</div>
+
+<div class="digit">
+9
+<span class="digitArrow">▼</span>
+</div>
+
 </div>
 
 <div class="controls">
-<div class="control"><label>STAKE</label><input id="stake" type="number" min=".01" step=".01" value="1"></div>
-<div class="control"><label>TARGET PROFIT</label><input id="targetProfit" type="number" min="0" step=".01" value="18" onchange="updateRiskSettings()"></div>
-<div class="control"><label>STOP LOSS</label><input id="stopLoss" type="number" min="0" step=".01" value="10" onchange="updateRiskSettings()"></div>
-<div class="control"><label>PAYOUT</label><input value="85%" disabled></div>
+
+<div class="control">
+
+<label>STAKE USD</label>
+
+<input
+id="stake"
+type="number"
+min=".01"
+step=".01"
+value="10"
+>
+
+</div>
+
+<div class="control">
+
+<label>TARGET PROFIT</label>
+
+<input
+id="targetProfit"
+type="number"
+min="0"
+step=".01"
+value="20"
+oninput="updateRiskSettings()"
+>
+
+</div>
+
+<div class="control">
+
+<label>STOP LOSS</label>
+
+<input
+id="stopLoss"
+type="number"
+min="0"
+step=".01"
+value="20"
+oninput="updateRiskSettings()"
+>
+
+</div>
+
+<div class="control">
+
+<label>PAYOUT</label>
+
+<input
+type="text"
+value="85%"
+disabled
+>
+
+</div>
+
 </div>
 
 <div class="summary">
-<div class="sum"><span>SESSION P/L</span><strong id="sessionPL" class="profit">+$0.00</strong></div>
-<div class="sum"><span>WINS</span><strong id="winCount">0</strong></div>
-<div class="sum"><span>LOSSES</span><strong id="lossCount">0</strong></div>
-<div class="sum"><span>TRADES</span><strong id="closedCount">0</strong></div>
+
+<div class="sum">
+<span>SESSION P/L</span>
+<strong id="sessionPL" class="profit">
++$0.00
+</strong>
 </div>
 
-<button class="auto" id="autoBtn" onclick="toggleAutoTrade()">▶ AUTO TRADE — DEMO</button>
+<div class="sum">
+<span>WINS</span>
+<strong id="winCount">0</strong>
+</div>
+
+<div class="sum">
+<span>LOSSES</span>
+<strong id="lossCount">0</strong>
+</div>
+
+<div class="sum">
+<span>CLOSED</span>
+<strong id="closedCount">0</strong>
+</div>
+
+</div>
+
+<button
+id="autoBtn"
+class="auto"
+onclick="toggleAutoTrade()">
+▶ AUTO TRADE — DEMO
+</button>
 
 <div class="tradeBtns">
-<button class="higher" onclick="manualTrade('Higher')">HIGHER</button>
-<button class="lower" onclick="manualTrade('Lower')">LOWER</button>
+
+<button
+class="higher"
+onclick="manualTrade('Higher')">
+HIGHER
+</button>
+
+<button
+class="lower"
+onclick="manualTrade('Lower')">
+LOWER
+</button>
+
 </div>
 
-<div class="notice">Demo trading is simulated. Auto Trade uses a 3-win / 1-loss demonstration cycle. It does not guarantee real trading results.</div>
+<div class="notice">
+Demo trades are simulated. Real-money trading requires
+secure backend infrastructure and genuine market execution.
 </div>
+
+</div>
+
+<!-- HISTORY -->
 
 <div class="history">
-<div class="historyHead"><h3>Trade History</h3><button class="clear" onclick="clearHistory()">Clear</button></div>
-<div id="historyList"><div class="historyRow"><span>No trades yet</span><span>—</span></div></div>
+
+<div class="historyHead">
+
+<h3>Trade History</h3>
+
+<button
+class="clear"
+onclick="clearHistory()">
+Clear
+</button>
+
+</div>
+
+<div id="historyList">
+
+<div class="historyRow">
+<span>No trades yet</span>
+<span>—</span>
 </div>
 
 </div>
+
+</div>
+
+</div>
+
 </section>
 
-<footer>
-<strong>SmartPayout</strong>
-<div class="footerLinks">
-<button onclick="openSupport()">Customer Support</button>
-<button onclick="openReferral()">Referral</button>
-<button onclick="openAI()">AI Assistant</button>
-<button onclick="openDeposit()">Deposit</button>
-</div>
-Customer support: +1 325-866-1875<br><br>
-© 2026 SmartPayout. Demo interface.
-</footer>
-
-<!-- TOAST -->
-<div class="toast" id="toast"><div class="toastTitle" id="toastTitle"></div><div class="toastText" id="toastText"></div></div>
-
 <!-- DEPOSIT -->
+
 <div class="modal" id="depositModal">
+
 <div class="modalBox">
-<div class="modalHead"><h3>💳 Deposit with M-Pesa</h3><button class="close" onclick="closeModal('depositModal')">×</button></div>
-<div class="info"><strong>Minimum deposit: $10.48 USD</strong><br>Estimated KES is displayed only inside this deposit form. M-Pesa will be connected through Safaricom Daraja using a secure backend.</div>
-<div class="group"><label>AMOUNT (USD)</label><input id="depositAmount" type="number" min="10.48" step=".01" value="10.48" oninput="updateDepositKES()"></div>
-<div class="group"><label>M-PESA PHONE NUMBER</label><input id="depositPhone" type="tel" placeholder="07XXXXXXXX"></div>
-<div class="group"><label>ESTIMATED KES</label><input id="depositKES" disabled value="KES 1,362.40"></div>
-<button class="full" onclick="startDeposit()">Continue to M-Pesa</button>
+
+<div class="modalHead">
+
+<h3>💳 Deposit</h3>
+
+<button
+class="close"
+onclick="closeModal('depositModal')">
+×
+</button>
+
 </div>
+
+<div class="info">
+
+<strong>Paystack Secure Checkout</strong><br>
+
+Your payment will open in Paystack's secure checkout.
+Use your Paystack test account while testing this version.
+
+</div>
+
+<div class="group">
+
+<label>AMOUNT (USD)</label>
+
+<input
+id="depositAmount"
+type="number"
+min="10.48"
+step=".01"
+value="10.48"
+oninput="updateDepositKES()"
+>
+
+</div>
+
+<div class="group">
+
+<label>M-PESA NUMBER</label>
+
+<input
+id="depositPhone"
+type="tel"
+placeholder="07XXXXXXXX"
+>
+
+</div>
+
+<div class="group">
+
+<label>EMAIL</label>
+
+<input
+id="depositEmail"
+type="email"
+placeholder="you@example.com"
+>
+
+</div>
+
+<div class="info">
+
+Estimated KES value:
+<strong id="depositKES">
+KES 1,362.40
+</strong>
+
+<br><br>
+
+Exchange-rate display used by this demo:
+<strong>1 USD = KES 130</strong>
+
+</div>
+
+<div class="fee">
+
+⚠ This is currently a Paystack TEST integration.
+No real-money balance will be credited by this frontend.
+
+</div>
+
+<button
+class="full"
+onclick="startDeposit()">
+Continue to Paystack
+</button>
+
+</div>
+
 </div>
 
 <!-- WITHDRAW -->
+
 <div class="modal" id="withdrawModal">
+
 <div class="modalBox">
-<div class="modalHead"><h3>💸 Withdraw</h3><button class="close" onclick="closeModal('withdrawModal')">×</button></div>
-<div class="group"><label>AMOUNT (USD)</label><input id="withdrawAmount" type="number" min=".01" step=".01" value="10" oninput="updateWithdrawKES()"></div>
-<div class="group"><label>M-PESA NUMBER</label><input id="withdrawPhone" type="tel" placeholder="07XXXXXXXX"></div>
-<div class="info">Estimated withdrawal: <strong id="withdrawKES">KES 1,300.00</strong></div>
-<div class="fee">⚠ <strong>Withdrawal fee: KES 2,000</strong><br>This fee is disclosed before confirmation.</div>
-<button class="full" onclick="requestWithdrawal()">Review Withdrawal</button>
+
+<div class="modalHead">
+
+<h3>💸 Withdraw</h3>
+
+<button
+class="close"
+onclick="closeModal('withdrawModal')">
+×
+</button>
+
 </div>
+
+<div class="group">
+
+<label>AMOUNT (USD)</label>
+
+<input
+id="withdrawAmount"
+type="number"
+min=".01"
+step=".01"
+value="10"
+oninput="updateWithdrawKES()"
+>
+
+</div>
+
+<div class="group">
+
+<label>M-PESA NUMBER</label>
+
+<input
+id="withdrawPhone"
+type="tel"
+placeholder="07XXXXXXXX"
+>
+
+</div>
+
+<div class="info">
+
+Estimated withdrawal:
+<strong id="withdrawKES">
+KES 1,300.00
+</strong>
+
+</div>
+
+<div class="fee">
+
+⚠
+<strong>Withdrawal fee: KES 2,000</strong><br>
+
+This fee is disclosed before confirmation.
+
+</div>
+
+<button
+class="full"
+onclick="requestWithdrawal()">
+Review Withdrawal
+</button>
+
+</div>
+
 </div>
 
 <!-- REFERRAL -->
+
 <div class="modal" id="referralModal">
+
 <div class="modalBox">
-<div class="modalHead"><h3>🔗 Referral Program</h3><button class="close" onclick="closeModal('referralModal')">×</button></div>
-<div class="info">Your referral code can be copied or shared. Referral rewards can be configured on the secure backend later.</div>
-<div class="refCode" id="refCode">SP-XXXXXX</div>
-<div class="two"><button class="full" onclick="copyReferral()">Copy Code</button><button class="full" onclick="shareReferral()">Share</button></div>
+
+<div class="modalHead">
+
+<h3>🔗 Referral Program</h3>
+
+<button
+class="close"
+onclick="closeModal('referralModal')">
+×
+</button>
+
 </div>
+
+<div class="info">
+
+Your referral code can be copied or shared.
+Referral rewards can be configured on the secure backend later.
+
+</div>
+
+<div class="refCode" id="refCode">
+SP-XXXXXX
+</div>
+
+<div class="two">
+
+<button
+class="full"
+onclick="copyReferral()">
+Copy Code
+</button>
+
+<button
+class="full"
+onclick="shareReferral()">
+Share
+</button>
+
+</div>
+
+</div>
+
 </div>
 
 <!-- AI -->
+
 <div class="modal" id="aiModal">
+
 <div class="modalBox">
-<div class="modalHead"><h3>🤖 SmartPayout AI</h3><button class="close" onclick="closeModal('aiModal')">×</button></div>
-<div class="info">AI responses are for demo/platform assistance only. They are not financial advice and cannot guarantee trading results.</div>
+
+<div class="modalHead">
+
+<h3>🤖 SmartPayout AI</h3>
+
+<button
+class="close"
+onclick="closeModal('aiModal')">
+×
+</button>
+
+</div>
+
+<div class="info">
+
+AI responses are for demo/platform assistance only.
+They are not financial advice and cannot guarantee trading results.
+
+</div>
+
 <div class="chatMessages" id="chatMessages">
-<div class="msg ai">Hi 👋 I'm the SmartPayout demo assistant. Ask me about Auto Trade, deposits, withdrawals, Target Profit, Stop Loss or the dashboard.</div>
+
+<div class="msg ai">
+
+Hi 👋 I'm the SmartPayout demo assistant.
+Ask me about Auto Trade, deposits, withdrawals,
+Target Profit, Stop Loss or the dashboard.
+
 </div>
-<div class="chatRow"><input id="chatInput" placeholder="Ask something..." onkeydown="if(event.key==='Enter')sendChat()"><button class="send" onclick="sendChat()">Send</button></div>
+
 </div>
+
+<div class="chatRow">
+
+<input
+id="chatInput"
+placeholder="Ask something..."
+onkeydown="if(event.key==='Enter')sendChat()"
+>
+
+<button
+class="send"
+onclick="sendChat()">
+Send
+</button>
+
+</div>
+
+</div>
+
 </div>
 
 <!-- SUPPORT -->
+
 <div class="modal" id="supportModal">
+
 <div class="modalBox">
-<div class="modalHead"><h3>💬 Customer Support</h3><button class="close" onclick="closeModal('supportModal')">×</button></div>
-<div class="support">SmartPayout Customer Support<div class="phone">+1 325-866-1875</div><div class="two"><a href="tel:+13258661875"><button class="full">☎ Call</button></a><button class="full" onclick="copySupport()">Copy Number</button></div></div>
+
+<div class="modalHead">
+
+<h3>💬 Customer Support</h3>
+
+<button
+class="close"
+onclick="closeModal('supportModal')">
+×
+</button>
+
 </div>
+
+<div class="support">
+
+SmartPayout Customer Support
+
+<div class="phone">
++1 325-866-1875
+</div>
+
+<div class="two">
+
+<a href="tel:+13258661875">
+<button class="full">
+☎ Call
+</button>
+</a>
+
+<button
+class="full"
+onclick="copySupport()">
+Copy Number
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- TOAST -->
+
+<div class="toast" id="toast">
+
+<div class="toastTitle" id="toastTitle">
+SmartPayout
+</div>
+
+<div class="toastText" id="toastText">
+Ready.
+</div>
+
 </div>
 
 <script>
+
+/* ================= CONFIG ================= */
+
+/*
+ IMPORTANT:
+ Replace ONLY this value with your Paystack PUBLIC key.
+
+ Example format:
+ pk_test_XXXXXXXXXXXXXXXXXXXXXXXX
+
+ NEVER put:
+ sk_test_...
+ sk_live_...
+
+ inside this HTML file.
+*/
+
+const PAYSTACK_PUBLIC_KEY = "YOUR_PAYSTACK_PUBLIC_KEY";
+
+/*
+ Demo exchange rate used only for the display.
+ This does NOT determine Paystack's actual charge.
+*/
+const DEMO_USD_KES = 130;
+
+
 /* ================= BASIC ================= */
-let currentAccount="demo",demoBalance=1000,realBalance=0;
+
+let currentAccount="demo";
+let demoBalance=1000;
+let realBalance=0;
+
 const PAYOUT=.85;
-let autoTrading=false,autoPosition=0,autoTimer=null,sessionStart=null;
-let wins=0,losses=0,trades=0;
-let currentPair="EUR/USD",baseForexPrice=1.16482;
+
+let autoTrading=false;
+let autoPosition=0;
+let autoTimer=null;
+let sessionStart=null;
+
+let wins=0;
+let losses=0;
+let trades=0;
+
+let currentPair="EUR/USD";
+let baseForexPrice=1.16482;
+
 
 /* ================= PLATFORM ================= */
+
 function openPlatform(){
+
 document.getElementById("landing").style.display="none";
+
 document.getElementById("dashboard").style.display="block";
-window.scrollTo(0,0);updateBalance();updateSummary();drawForex();
-}
-function backHome(){
-stopAuto();document.getElementById("dashboard").style.display="none";document.getElementById("landing").style.display="block";window.scrollTo(0,0);
-}
-function switchAccount(a){
-if(autoTrading)stopAuto();currentAccount=a;
-demoTab.classList.toggle("active",a==="demo");realTab.classList.toggle("active",a==="real");
+
+window.scrollTo(0,0);
+
 updateBalance();
-}
-function updateBalance(){
-let b=currentAccount==="demo"?demoBalance:realBalance;
-balance.textContent="$"+b.toFixed(2);
-balanceTitle.textContent=currentAccount.toUpperCase()+" BALANCE";
+updateSummary();
+drawForex();
+
 }
 
-/* ================= RISK ================= */
-function updateRiskSettings(){
-let t=Number(targetProfit.value)||0,s=Number(stopLoss.value)||0;
-if(t<0)targetProfit.value=0;if(s<0)stopLoss.value=0;
+
+function backHome(){
+
+stopAuto();
+
+document.getElementById("dashboard").style.display="none";
+
+document.getElementById("landing").style.display="block";
+
+window.scrollTo(0,0);
+
 }
 
-/* ================= AUTO TRADE ================= */
-function toggleAutoTrade(){
-if(currentAccount!=="demo"){
-showToast("Real Auto Trade unavailable","Real-money execution requires a secure backend and genuine market execution.","danger");return;
-}
-autoTrading=!autoTrading;
+
+function switchAccount(a){
+
 if(autoTrading){
-sessionStart=demoBalance;autoPosition=0;wins=0;losses=0;updateSummary();
-autoBtn.classList.add("running");autoBtn.textContent="⏹ AUTO TRADE RUNNING";
-showToast("Auto Trade started","Demo cycle: 3 wins followed by 1 loss.","info");
-runAuto();autoTimer=setInterval(runAuto,4000);
-}else stopAuto();
-}
-function stopAuto(){
-autoTrading=false;
-if(autoTimer){clearInterval(autoTimer);autoTimer=null}
-autoBtn.classList.remove("running");autoBtn.textContent="▶ AUTO TRADE — DEMO";
-sessionStart=null;
-}
-function runAuto(){
-if(!autoTrading)return;
-let stake=Math.max(.01,Number(document.getElementById("stake").value)||0);
-if(stake>demoBalance){
-showToast("Auto Trade stopped","Insufficient demo balance for the selected stake.","danger");stopAuto();return;
-}
-let win=autoPosition<3;autoPosition=(autoPosition+1)%4;
-let types=["Digits","Even/Odd","Matches/Differs","Higher/Lower","Over/Under"];
-let type=types[Math.floor(Math.random()*types.length)];
-executeTrade(win,stake,"Auto "+type);
-}
-function manualTrade(type){
-if(currentAccount!=="demo"){
-showToast("Real trading disabled","This frontend only executes simulated demo trades.","danger");return;
-}
-let stake=Math.max(.01,Number(document.getElementById("stake").value)||0);
-if(stake>demoBalance){showToast("Insufficient balance","Enter a smaller demo stake.","danger");return}
-executeTrade(Math.random()>.5,stake,type);
-}
-function executeTrade(win,stake,name){
-demoBalance-=stake;
-let amount;
-if(win){amount=stake*PAYOUT;demoBalance+=stake+amount;wins++}
-else{amount=stake;losses++}
-trades++;
-addHistory(name,win?"WIN":"LOSS",stake,amount);
-updateBalance();updateSummary();
-if(autoTrading)checkLimits();
-}
-function checkLimits(){
-if(sessionStart===null)return;
-let net=demoBalance-sessionStart;
-let target=Math.max(0,Number(targetProfit.value)||0);
-let stop=Math.max(0,Number(stopLoss.value)||0);
-if(target>0&&net>=target){
-showToast("🎯 TARGET PROFIT REACHED","Target $"+target.toFixed(2)+" reached. Session profit: $"+net.toFixed(2)+". Auto Trade stopped.","success");
-stopAuto();return;
-}
-if(stop>0&&net<=-stop){
-showToast("🛑 STOP LOSS REACHED","Stop loss $"+stop.toFixed(2)+" reached. Session loss: $"+Math.abs(net).toFixed(2)+". Auto Trade stopped.","danger");
 stopAuto();
 }
+
+currentAccount=a;
+
+document
+.getElementById("demoTab")
+.classList.toggle("active",a==="demo");
+
+document
+.getElementById("realTab")
+.classList.toggle("active",a==="real");
+
+updateBalance();
+
 }
+
+
+function updateBalance(){
+
+let b=currentAccount==="demo"
+?demoBalance
+:realBalance;
+
+document.getElementById("balance").textContent=
+"$"+b.toFixed(2);
+
+document.getElementById("balanceTitle").textContent=
+currentAccount.toUpperCase()+" BALANCE";
+
+}
+
+
+/* ================= RISK ================= */
+
+function updateRiskSettings(){
+
+let t=Number(document.getElementById("targetProfit").value)||0;
+
+let s=Number(document.getElementById("stopLoss").value)||0;
+
+if(t<0){
+document.getElementById("targetProfit").value=0;
+}
+
+if(s<0){
+document.getElementById("stopLoss").value=0;
+}
+
+}
+
+
+/* ================= AUTO TRADE ================= */
+
+function toggleAutoTrade(){
+
+if(currentAccount!=="demo"){
+
+showToast(
+"Real Auto Trade unavailable",
+"Real-money execution requires a secure backend and genuine market execution.",
+"danger"
+);
+
+return;
+
+}
+
+autoTrading=!autoTrading;
+
+if(autoTrading){
+
+sessionStart=demoBalance;
+autoPosition=0;
+wins=0;
+losses=0;
+
+updateSummary();
+
+document
+.getElementById("autoBtn")
+.classList.add("running");
+
+document.getElementById("autoBtn").textContent=
+"⏹ AUTO TRADE RUNNING";
+
+showToast(
+"Auto Trade started",
+"Demo cycle: 3 wins followed by 1 loss.",
+"info"
+);
+
+runAuto();
+
+autoTimer=setInterval(runAuto,4000);
+
+}else{
+
+stopAuto();
+
+}
+
+}
+
+
+function stopAuto(){
+
+autoTrading=false;
+
+if(autoTimer){
+
+clearInterval(autoTimer);
+autoTimer=null;
+
+}
+
+document
+.getElementById("autoBtn")
+.classList.remove("running");
+
+document.getElementById("autoBtn").textContent=
+"▶ AUTO TRADE — DEMO";
+
+sessionStart=null;
+
+}
+
+
+function runAuto(){
+
+if(!autoTrading)return;
+
+let stake=Math.max(
+.01,
+Number(document.getElementById("stake").value)||0
+);
+
+if(stake>demoBalance){
+
+showToast(
+"Auto Trade stopped",
+"Insufficient demo balance for the selected stake.",
+"danger"
+);
+
+stopAuto();
+
+return;
+
+}
+
+let win=autoPosition<3;
+
+autoPosition=(autoPosition+1)%4;
+
+let types=[
+"Digits",
+"Even/Odd",
+"Matches/Differs",
+"Higher/Lower",
+"Over/Under"
+];
+
+let type=types[
+Math.floor(Math.random()*types.length)
+];
+
+executeTrade(
+win,
+stake,
+"Auto "+type
+);
+
+}
+
+
+function manualTrade(type){
+
+if(currentAccount!=="demo"){
+
+showToast(
+"Real trading disabled",
+"This frontend only executes simulated demo trades.",
+"danger"
+);
+
+return;
+
+}
+
+let stake=Math.max(
+.01,
+Number(document.getElementById("stake").value)||0
+);
+
+if(stake>demoBalance){
+
+showToast(
+"Insufficient balance",
+"Enter a smaller demo stake.",
+"danger"
+);
+
+return;
+
+}
+
+executeTrade(
+Math.random()>.5,
+stake,
+type
+);
+
+}
+
+
+function executeTrade(win,stake,name){
+
+demoBalance-=stake;
+
+let amount;
+
+if(win){
+
+amount=stake*PAYOUT;
+
+demoBalance+=stake+amount;
+
+wins++;
+
+}else{
+
+amount=stake;
+
+losses++;
+
+}
+
+trades++;
+
+addHistory(
+name,
+win?"WIN":"LOSS",
+stake,
+amount
+);
+
+updateBalance();
+updateSummary();
+
+if(autoTrading){
+checkLimits();
+}
+
+}
+
+
+function checkLimits(){
+
+if(sessionStart===null)return;
+
+let net=demoBalance-sessionStart;
+
+let target=Math.max(
+0,
+Number(document.getElementById("targetProfit").value)||0
+);
+
+let stop=Math.max(
+0,
+Number(document.getElementById("stopLoss").value)||0
+);
+
+if(target>0&&net>=target){
+
+showToast(
+"🎯 TARGET PROFIT REACHED",
+"Target $"+target.toFixed(2)+
+" reached. Session profit: $"+
+net.toFixed(2)+". Auto Trade stopped.",
+"success"
+);
+
+stopAuto();
+
+return;
+
+}
+
+if(stop>0&&net<=-stop){
+
+showToast(
+"🛑 STOP LOSS REACHED",
+"Stop loss $"+stop.toFixed(2)+
+" reached. Session loss: $"+
+Math.abs(net).toFixed(2)+
+". Auto Trade stopped.",
+"danger"
+);
+
+stopAuto();
+
+}
+
+}
+
+
 function updateSummary(){
-let net=sessionStart===null?0:demoBalance-sessionStart;
-sessionPL.textContent=(net>=0?"+":"-")+"$"+Math.abs(net).toFixed(2);
-sessionPL.className=net>=0?"profit":"loss";
-autoPL.textContent=(net>=0?"+":"-")+"$"+Math.abs(net).toFixed(2);
-winCount.textContent=wins;lossCount.textContent=losses;closedCount.textContent=trades;
+
+let net=sessionStart===null
+?0
+:demoBalance-sessionStart;
+
+const sessionPL=document.getElementById("sessionPL");
+
+sessionPL.textContent=
+(net>=0?"+":"-")+
+"$"+
+Math.abs(net).toFixed(2);
+
+sessionPL.className=
+net>=0
+?"profit"
+:"loss";
+
+document.getElementById("autoPL").textContent=
+(net>=0?"+":"-")+
+"$"+
+Math.abs(net).toFixed(2);
+
+document.getElementById("winCount").textContent=wins;
+
+document.getElementById("lossCount").textContent=losses;
+
+document.getElementById("closedCount").textContent=trades;
+
 }
+
+
 function addHistory(name,result,stake,amount){
-let list=historyList;
-if(list.textContent.includes("No trades yet"))list.innerHTML="";
-let row=document.createElement("div");row.className="historyRow";
-row.innerHTML="<span>"+name+" · $"+stake.toFixed(2)+"</span><span class='"+(result==="WIN"?"profit":"loss")+"'>"+result+" "+(result==="WIN"?"+":"-")+"$"+amount.toFixed(2)+"</span>";
+
+let list=document.getElementById("historyList");
+
+if(list.textContent.includes("No trades yet")){
+list.innerHTML="";
+}
+
+let row=document.createElement("div");
+
+row.className="historyRow";
+
+row.innerHTML=
+"<span>"+
+name+
+" · $"+
+stake.toFixed(2)+
+"</span>"+
+"<span class='"+
+(result==="WIN"?"profit":"loss")+
+"'>"+
+result+
+" "+
+(result==="WIN"?"+":"-")+
+"$"+
+amount.toFixed(2)+
+"</span>";
+
 list.prepend(row);
+
 }
+
+
 function clearHistory(){
-historyList.innerHTML='<div class="historyRow"><span>No trades yet</span><span>—</span></div>';
-wins=losses=trades=0;updateSummary();
+
+document.getElementById("historyList").innerHTML=
+'<div class="historyRow"><span>No trades yet</span><span>—</span></div>';
+
+wins=0;
+losses=0;
+trades=0;
+
+updateSummary();
+
 }
+
 
 /* ================= FOREX PAIRS ================= */
-function selectPair(pair,icon,price){
-currentPair=pair;baseForexPrice=price;
-pairName.textContent=pair;pairIcon.textContent=icon;forexPrice.textContent=price.toFixed(pair.includes("JPY")?3:5);
-document.querySelectorAll(".pairs button").forEach(x=>x.classList.remove("active"));
-event.target.classList.add("active");
+
+function selectPair(pair,icon,price,button){
+
+currentPair=pair;
+
+baseForexPrice=price;
+
+document.getElementById("pairName").textContent=pair;
+
+document.getElementById("pairIcon").textContent=icon;
+
+document.getElementById("forexPrice").textContent=
+price.toFixed(
+pair.includes("JPY")?3:5
+);
+
+document
+.querySelectorAll(".pairs button")
+.forEach(x=>x.classList.remove("active"));
+
+button.classList.add("active");
+
+seedForex();
+
 drawForex();
+
 }
+
 
 /* ================= FOREX CHART ================= */
+
 let forexCandles=[];
+
+
 function seedForex(){
-forexCandles=[];let p=baseForexPrice;
+
+forexCandles=[];
+
+let p=baseForexPrice;
+
 for(let i=0;i<90;i++){
-let o=p,c=o+(Math.random()-.47)*(currentPair.includes("JPY")?.8:.004);
-forexCandles.push({o:o,c:c,h:Math.max(o,c)+(Math.random()*(currentPair.includes("JPY")?.35:.002)),l:Math.min(o,c)-(Math.random()*(currentPair.includes("JPY")?.35:.002))});
-p=c;
-}
-}
-function drawForex(){
-let c=document.getElementById("forexChart"),ctx=c.getContext("2d"),r=c.getBoundingClientRect(),d=devicePixelRatio||1;
-c.width=r.width*d;c.height=r.height*d;ctx.setTransform(d,0,0,d,0,0);
-let w=r.width,h=r.height;
-ctx.clearRect(0,0,w,h);
-ctx.strokeStyle="#10243b";ctx.lineWidth=1;
-for(let y=20;y<h;y+=38){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}
-for(let x=30;x<w;x+=65){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke()}
-if(!forexCandles.length)seedForex();
-let data=forexCandles.slice(-Math.floor(w/9));
-let min=Math.min(...data.map(x=>x.l)),max=Math.max(...data.map(x=>x.h)),range=max-min||1;
-let sy=v=>h-((v-min)/range)*(h-25)-5,gap=w/data.length;
-data.forEach((x,i)=>{
-let px=i*gap+gap/2,oy=sy(x.o),cy=sy(x.c),hy=sy(x.h),ly=sy(x.l),up=x.c>=x.o,col=up?"#00d997":"#ff416b";
-ctx.strokeStyle=col;ctx.fillStyle=col;ctx.beginPath();ctx.moveTo(px,hy);ctx.lineTo(px,ly);ctx.stroke();
-ctx.fillRect(px-3,Math.min(oy,cy),6,Math.max(2,Math.abs(cy-oy)));
+
+let o=p;
+
+let c=o+
+(Math.random()-.47)*
+(currentPair.includes("JPY")?.8:.004);
+
+forexCandles.push({
+
+o:o,
+
+c:c,
+
+h:Math.max(o,c)+
+(Math.random()*
+(currentPair.includes("JPY")?.35:.002)),
+
+l:Math.min(o,c)-
+(Math.random()*
+(currentPair.includes("JPY")?.35:.002))
+
 });
+
+p=c;
+
 }
-function forexTick(){
-if(!forexCandles.length)seedForex();
-let last=forexCandles[forexCandles.length-1],o=last.c;
-let movement=currentPair.includes("JPY")?(Math.random()-.48)*.5:(Math.random()-.48)*.003;
-let c=o+movement;
-forexCandles.push({o,c,h:Math.max(o,c)+Math.random()*.0015,l:Math.min(o,c)-Math.random()*.0015});
-if(forexCandles.length>110)forexCandles.shift();
-drawForex();
-let display=currentPair.includes("JPY")?c.toFixed(3):c.toFixed(5);
-forexPrice.textContent=display;
+
 }
+
+
+function drawForex(){
+
+let c=document.getElementById("forexChart");
+
+if(!c)return;
+
+let ctx=c.getContext("2d");
+
+let r=c.getBoundingClientRect();
+
+let d=window.devicePixelRatio||1;
+
+c.width=r.width*d;
+
+c.height=r.height*d;
+
+ctx.setTransform(d,0,0,d,0,0);
+
+let w=r.width;
+
+let h=r.height;
+
+ctx.clearRect(0,0,w,h);
+
+ctx.strokeStyle="#10243b";
+
+ctx.lineWidth=1;
+
+for(let y=20;y<h;y+=38){
+
+ctx.beginPath();
+
+ctx.moveTo(0,y);
+
+ctx.lineTo(w,y);
+
+ctx.stroke();
+
+}
+
+for(let x=30;x<w;x+=65){
+
+ctx.beginPath();
+
+ctx.moveTo(x,0);
+
+ctx.lineTo(x,h);
+
+ctx.stroke();
+
+}
+
+if(!forexCandles.length){
 seedForex();
-window.addEventListener("resize",drawForex);
+}
+
+let data=
+forexCandles.slice(
+-Math.floor(w/9)
+);
+
+let min=Math.min(
+...data.map(x=>x.l)
+);
+
+let max=Math.max(
+...data.map(x=>x.h)
+);
+
+let range=max-min||1;
+
+let sy=v=>
+h-
+((v-min)/range)*
+(h-25)-5;
+
+let gap=w/data.length;
+
+data.forEach((x,i)=>{
+
+let px=i*gap+gap/2;
+
+let oy=sy(x.o);
+
+let cy=sy(x.c);
+
+let hy=sy(x.h);
+
+let ly=sy(x.l);
+
+let up=x.c>=x.o;
+
+let col=up
+?"#00d997"
+:"#ff416b";
+
+ctx.strokeStyle=col;
+
+ctx.fillStyle=col;
+
+ctx.beginPath();
+
+ctx.moveTo(px,hy);
+
+ctx.lineTo(px,ly);
+
+ctx.stroke();
+
+ctx.fillRect(
+px-3,
+Math.min(oy,cy),
+6,
+Math.max(2,Math.abs(cy-oy))
+);
+
+});
+
+}
+
+
+function forexTick(){
+
+if(!forexCandles.length){
+seedForex();
+}
+
+let last=
+forexCandles[
+forexCandles.length-1
+];
+
+let o=last.c;
+
+let movement=
+currentPair.includes("JPY")
+?(Math.random()-.48)*.5
+:(Math.random()-.48)*.003;
+
+let c=o+movement;
+
+forexCandles.push({
+
+o:o,
+c:c,
+h:Math.max(o,c)+Math.random()*.0015,
+l:Math.min(o,c)-Math.random()*.0015
+
+});
+
+if(forexCandles.length>110){
+forexCandles.shift();
+}
+
+drawForex();
+
+let display=
+currentPair.includes("JPY")
+?c.toFixed(3)
+:c.toFixed(5);
+
+document.getElementById("forexPrice").textContent=
+display;
+
+}
+
+
+seedForex();
+
+window.addEventListener(
+"resize",
+drawForex
+);
+
 
 /* ================= LANDING BTC CHART ================= */
+
 let btcCandles=[];
+
+
 function seedBTC(){
-btcCandles=[];let p=77354;
+
+btcCandles=[];
+
+let p=77354;
+
 for(let i=0;i<80;i++){
-let o=p,c=o+(Math.random()-.46)*500;
-btcCandles.push({o,c,h:Math.max(o,c)+Math.random()*180,l:Math.min(o,c)-Math.random()*180});p=c;
-}}
-function drawBTC(){
-let c=marketChart,ctx=c.getContext("2d"),r=c.getBoundingClientRect(),d=devicePixelRatio||1;
-c.width=r.width*d;c.height=r.height*d;ctx.setTransform(d,0,0,d,0,0);
-let w=r.width,h=r.height;ctx.clearRect(0,0,w,h);ctx.strokeStyle="#10243b";
-for(let y=20;y<h;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}
-if(!btcCandles.length)seedBTC();
-let data=btcCandles.slice(-Math.floor(w/9)),min=Math.min(...data.map(x=>x.l)),max=Math.max(...data.map(x=>x.h)),range=max-min||1,sy=v=>h-((v-min)/range)*(h-25)-5,gap=w/data.length;
-data.forEach((x,i)=>{
-let px=i*gap+gap/2,oy=sy(x.o),cy=sy(x.c),hy=sy(x.h),ly=sy(x.l),up=x.c>=x.o,col=up?"#00d997":"#ff416b";
-ctx.strokeStyle=col;ctx.fillStyle=col;ctx.beginPath();ctx.moveTo(px,hy);ctx.lineTo(px,ly);ctx.stroke();ctx.fillRect(px-3,Math.min(oy,cy),6,Math.max(2,Math.abs(cy-oy)));
+
+let o=p;
+
+let c=o+
+(Math.random()-.46)*500;
+
+btcCandles.push({
+
+o:o,
+
+c:c,
+
+h:Math.max(o,c)+Math.random()*180,
+
+l:Math.min(o,c)-Math.random()*180
+
 });
+
+p=c;
+
 }
-seedBTC();drawBTC();
+
+}
+
+
+function drawBTC(){
+
+let c=document.getElementById("marketChart");
+
+if(!c)return;
+
+let ctx=c.getContext("2d");
+
+let r=c.getBoundingClientRect();
+
+let d=window.devicePixelRatio||1;
+
+c.width=r.width*d;
+
+c.height=r.height*d;
+
+ctx.setTransform(d,0,0,d,0,0);
+
+let w=r.width;
+
+let h=r.height;
+
+ctx.clearRect(0,0,w,h);
+
+ctx.strokeStyle="#10243b";
+
+for(let y=20;y<h;y+=40){
+
+ctx.beginPath();
+
+ctx.moveTo(0,y);
+
+ctx.lineTo(w,y);
+
+ctx.stroke();
+
+}
+
+if(!btcCandles.length){
+seedBTC();
+}
+
+let data=
+btcCandles.slice(
+-Math.floor(w/9)
+);
+
+let min=Math.min(
+...data.map(x=>x.l)
+);
+
+let max=Math.max(
+...data.map(x=>x.h)
+);
+
+let range=max-min||1;
+
+let sy=v=>
+h-
+((v-min)/range)*
+(h-25)-5;
+
+let gap=w/data.length;
+
+data.forEach((x,i)=>{
+
+let px=i*gap+gap/2;
+
+let oy=sy(x.o);
+
+let cy=sy(x.c);
+
+let hy=sy(x.h);
+
+let ly=sy(x.l);
+
+let up=x.c>=x.o;
+
+let col=up
+?"#00d997"
+:"#ff416b";
+
+ctx.strokeStyle=col;
+
+ctx.fillStyle=col;
+
+ctx.beginPath();
+
+ctx.moveTo(px,hy);
+
+ctx.lineTo(px,ly);
+
+ctx.stroke();
+
+ctx.fillRect(
+px-3,
+Math.min(oy,cy),
+6,
+Math.max(2,Math.abs(cy-oy))
+);
+
+});
+
+}
+
+
+seedBTC();
+
+drawBTC();
+
 
 /* ================= SCANNER ================= */
-let scanTypes=["MATCHES","DIFFERS","EVEN","ODD","HIGHER","LOWER"];
+
+let scanTypes=[
+"MATCHES",
+"DIFFERS",
+"EVEN",
+"ODD",
+"HIGHER",
+"LOWER"
+];
+
 setInterval(()=>{
-scanDigit.textContent=Math.floor(Math.random()*10);
-let t=scanTypes[Math.floor(Math.random()*scanTypes.length)];
-scanType.textContent=t;scanPrediction.textContent=Math.random()>.5?t:"DIFFERS";
+
+document.getElementById("scanDigit").textContent=
+Math.floor(Math.random()*10);
+
+let t=
+scanTypes[
+Math.floor(Math.random()*scanTypes.length)
+];
+
+document.getElementById("scanType").textContent=t;
+
+document.getElementById("scanPrediction").textContent=
+Math.random()>.5
+?t
+:"DIFFERS";
+
 },2200);
 
+
 setInterval(()=>{
-let p=77354+(Math.random()-.5)*450;btcPrice.textContent="$"+Math.round(p).toLocaleString();drawBTC();
+
+let p=
+77354+
+(Math.random()-.5)*450;
+
+document.getElementById("btcPrice").textContent=
+"$"+
+Math.round(p).toLocaleString();
+
+drawBTC();
+
 },2000);
 
-setInterval(forexTick,1600);
+
+setInterval(
+forexTick,
+1600
+);
+
 
 /* ================= MODALS ================= */
-function openModal(id){document.getElementById(id).classList.add("show")}
-function closeModal(id){document.getElementById(id).classList.remove("show")}
-window.addEventListener("click",e=>{if(e.target.classList.contains("modal"))e.target.classList.remove("show")});
+
+function openModal(id){
+
+document
+.getElementById(id)
+.classList.add("show");
+
+}
+
+
+function closeModal(id){
+
+document
+.getElementById(id)
+.classList.remove("show");
+
+}
+
+
+window.addEventListener(
+"click",
+function(e){
+
+if(
+e.target.classList.contains("modal")
+){
+e.target.classList.remove("show");
+}
+
+}
+);
+
 
 /* ================= DEPOSIT ================= */
-function openDeposit(){openModal("depositModal");updateDepositKES()}
+
+function openDeposit(){
+
+openModal("depositModal");
+
+updateDepositKES();
+
+}
+
+
 function updateDepositKES(){
-let usd=Math.max(0,Number(depositAmount.value)||0);
-depositKES.value="KES "+(usd*130).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+
+let usd=
+Math.max(
+0,
+Number(
+document.getElementById("depositAmount").value
+)||0
+);
+
+document.getElementById("depositKES").textContent=
+"KES "+
+(usd*DEMO_USD_KES).toLocaleString(
+undefined,
+{
+minimumFractionDigits:2,
+maximumFractionDigits:2
 }
+);
+
+}
+
+
+/*
+ PAYSTACK PAYMENT
+
+ This is the TEST frontend integration.
+
+ The public key belongs here.
+
+ The secret key NEVER belongs here.
+*/
+
 function startDeposit(){
-let a=Number(depositAmount.value)||0,p=depositPhone.value.trim();
-if(a<10.48){showToast("Minimum deposit","The minimum deposit is $10.48 USD.","danger");return}
-if(!p){showToast("M-Pesa number required","Enter an M-Pesa number.","danger");return}
-closeModal("depositModal");
-showToast("Ready for Daraja","The frontend is prepared for secure Safaricom Daraja backend integration. No false payment confirmation was created.","info");
+
+let amountUSD=
+Number(
+document.getElementById("depositAmount").value
+)||0;
+
+let phone=
+document.getElementById("depositPhone").value.trim();
+
+let email=
+document.getElementById("depositEmail").value.trim();
+
+
+if(amountUSD<10.48){
+
+showToast(
+"Minimum deposit",
+"The minimum deposit is $10.48 USD.",
+"danger"
+);
+
+return;
+
 }
+
+
+if(!phone){
+
+showToast(
+"M-Pesa number required",
+"Enter an M-Pesa number.",
+"danger"
+);
+
+return;
+
+}
+
+
+if(!email){
+
+showToast(
+"Email required",
+"Enter your email address.",
+"danger"
+);
+
+return;
+
+}
+
+
+if(!email.includes("@")){
+
+showToast(
+"Invalid email",
+"Enter a valid email address.",
+"danger"
+);
+
+return;
+
+}
+
+
+if(
+!PAYSTACK_PUBLIC_KEY ||
+PAYSTACK_PUBLIC_KEY==="YOUR_PAYSTACK_PUBLIC_KEY"
+){
+
+showToast(
+"Paystack key missing",
+"Add your Paystack PUBLIC key to the code first.",
+"danger"
+);
+
+return;
+
+}
+
+
+if(
+typeof PaystackPop==="undefined"
+){
+
+showToast(
+"Paystack unavailable",
+"Paystack could not load. Check your internet connection.",
+"danger"
+);
+
+return;
+
+}
+
+
+/*
+ Paystack uses the smallest denomination
+ of the selected currency.
+
+ Example:
+ $10.48 USD = 1048 cents.
+*/
+
+let amountInSmallestUnit=
+Math.round(amountUSD*100);
+
+
+closeModal("depositModal");
+
+
+try{
+
+const paystack=
+new PaystackPop();
+
+
+paystack.newTransaction({
+
+key:PAYSTACK_PUBLIC_KEY,
+
+email:email,
+
+amount:amountInSmallestUnit,
+
+currency:"USD",
+
+channels:[
+"card",
+"bank",
+"ussd",
+"qr",
+"eft",
+"mobile_money",
+"bank_transfer"
+],
+
+phone:phone,
+
+metadata:{
+
+custom_fields:[
+
+{
+display_name:"M-Pesa Number",
+variable_name:"mpesa_number",
+value:phone
+},
+
+{
+display_name:"SmartPayout Account",
+variable_name:"smartpayout_account",
+value:currentAccount
+},
+
+{
+display_name:"Requested USD",
+variable_name:"requested_usd",
+value:amountUSD.toFixed(2)
+}
+
+]
+
+},
+
+onLoad:function(response){
+
+showToast(
+"Paystack checkout",
+"Payment window loaded.",
+"info"
+);
+
+console.log(
+"Paystack loaded:",
+response
+);
+
+},
+
+onSuccess:function(transaction){
+
+console.log(
+"Paystack transaction:",
+transaction
+);
+
+
+/*
+ IMPORTANT:
+
+ This does NOT credit realBalance.
+
+ The transaction reference must be verified
+ on a secure backend before real value is delivered.
+*/
+
+showToast(
+"Payment submitted",
+"Reference: "+
+(transaction.reference||"received")+
+". Verify it before crediting funds.",
+"success"
+);
+
+},
+
+onCancel:function(){
+
+showToast(
+"Payment cancelled",
+"The Paystack checkout was cancelled.",
+"danger"
+);
+
+},
+
+onError:function(error){
+
+console.error(
+"Paystack error:",
+error
+);
+
+showToast(
+"Payment error",
+error&&error.message
+?error.message
+:"Unable to start Paystack checkout.",
+"danger"
+);
+
+}
+
+});
+
+}catch(error){
+
+console.error(error);
+
+showToast(
+"Paystack error",
+"Unable to open Paystack checkout.",
+"danger"
+);
+
+}
+
+}
+
 
 /* ================= WITHDRAW ================= */
-function openWithdraw(){openModal("withdrawModal");updateWithdrawKES()}
+
+function openWithdraw(){
+
+openModal("withdrawModal");
+
+updateWithdrawKES();
+
+}
+
+
 function updateWithdrawKES(){
-let usd=Math.max(0,Number(withdrawAmount.value)||0);
-withdrawKES.textContent="KES "+(usd*130).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+
+let usd=
+Math.max(
+0,
+Number(
+document.getElementById("withdrawAmount").value
+)||0
+);
+
+document.getElementById("withdrawKES").textContent=
+"KES "+
+(usd*DEMO_USD_KES).toLocaleString(
+undefined,
+{
+minimumFractionDigits:2,
+maximumFractionDigits:2
 }
+);
+
+}
+
+
 function requestWithdrawal(){
-let a=Number(withdrawAmount.value)||0,p=withdrawPhone.value.trim();
-if(a<=0){showToast("Invalid amount","Enter a valid amount.","danger");return}
-if(!p){showToast("M-Pesa number required","Enter an M-Pesa number.","danger");return}
-closeModal("withdrawModal");
-showToast("Withdrawal review","KES 2,000 withdrawal fee is disclosed. Final processing requires secure backend verification.","info");
+
+let a=
+Number(
+document.getElementById("withdrawAmount").value
+)||0;
+
+let p=
+document.getElementById("withdrawPhone").value.trim();
+
+
+if(a<=0){
+
+showToast(
+"Invalid amount",
+"Enter a valid amount.",
+"danger"
+);
+
+return;
+
 }
+
+
+if(!p){
+
+showToast(
+"M-Pesa number required",
+"Enter an M-Pesa number.",
+"danger"
+);
+
+return;
+
+}
+
+
+closeModal("withdrawModal");
+
+showToast(
+"Withdrawal review",
+"KES 2,000 withdrawal fee is disclosed. Final processing requires secure backend verification.",
+"info"
+);
+
+}
+
 
 /* ================= REFERRAL ================= */
+
 function getReferral(){
-let c=localStorage.getItem("smartpayout_referral");
+
+let c=
+localStorage.getItem(
+"smartpayout_referral"
+);
+
 if(!c){
-let chars="ABCDEFGHJKLMNPQRSTUVWXYZ23456789",r="";
-for(let i=0;i<6;i++)r+=chars[Math.floor(Math.random()*chars.length)];
-c="SP-"+r;localStorage.setItem("smartpayout_referral",c);
+
+let chars=
+"ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+let r="";
+
+for(let i=0;i<6;i++){
+
+r+=chars[
+Math.floor(
+Math.random()*chars.length
+)
+];
+
 }
+
+c="SP-"+r;
+
+localStorage.setItem(
+"smartpayout_referral",
+c
+);
+
+}
+
 return c;
+
 }
-function openReferral(){refCode.textContent=getReferral();openModal("referralModal")}
+
+
+function openReferral(){
+
+document.getElementById("refCode").textContent=
+getReferral();
+
+openModal("referralModal");
+
+}
+
+
 async function copyReferral(){
+
 let c=getReferral();
-try{await navigator.clipboard.writeText(c);showToast("Referral copied",c+" copied.","success")}
-catch(e){showToast("Referral code",c,"info")}
+
+try{
+
+await navigator.clipboard.writeText(c);
+
+showToast(
+"Referral copied",
+c+" copied.",
+"success"
+);
+
+}catch(e){
+
+showToast(
+"Referral code",
+c,
+"info"
+);
+
 }
+
+}
+
+
 async function shareReferral(){
-let c=getReferral(),text="Join me on SmartPayout using my referral code: "+c;
-if(navigator.share){try{await navigator.share({title:"SmartPayout",text})}catch(e){}}
-else copyReferral();
+
+let c=getReferral();
+
+let text=
+"Join me on SmartPayout using my referral code: "+
+c;
+
+if(navigator.share){
+
+try{
+
+await navigator.share({
+title:"SmartPayout",
+text:text
+});
+
+}catch(e){}
+
+}else{
+
+copyReferral();
+
 }
+
+}
+
 
 /* ================= AI ================= */
-function openAI(){openModal("aiModal");setTimeout(()=>chatInput.focus(),100)}
+
+function openAI(){
+
+openModal("aiModal");
+
+setTimeout(
+()=>{
+document.getElementById("chatInput").focus();
+},
+100
+);
+
+}
+
+
 function addMessage(text,type){
-let d=document.createElement("div");d.className="msg "+type;d.textContent=text;chatMessages.appendChild(d);chatMessages.scrollTop=chatMessages.scrollHeight;
+
+let d=
+document.createElement("div");
+
+d.className="msg "+type;
+
+d.textContent=text;
+
+document
+.getElementById("chatMessages")
+.appendChild(d);
+
+document
+.getElementById("chatMessages")
+.scrollTop=
+document
+.getElementById("chatMessages")
+.scrollHeight;
+
 }
+
+
 function sendChat(){
-let q=chatInput.value.trim();if(!q)return;
-addMessage(q,"user");chatInput.value="";
-setTimeout(()=>addMessage(aiReply(q),"ai"),300);
+
+let input=
+document.getElementById("chatInput");
+
+let q=input.value.trim();
+
+if(!q)return;
+
+addMessage(q,"user");
+
+input.value="";
+
+setTimeout(
+()=>{
+addMessage(
+aiReply(q),
+"ai"
+);
+},
+300
+);
+
 }
+
+
 function aiReply(q){
+
 q=q.toLowerCase();
-if(q.includes("deposit")||q.includes("mpesa"))return"Deposits have a $10.48 USD minimum. The M-Pesa interface is ready for a secure Daraja backend connection.";
-if(q.includes("withdraw"))return"Withdrawals show the KES amount and clearly disclose the KES 2,000 withdrawal fee before confirmation.";
-if(q.includes("target")||q.includes("profit"))return"Target Profit stops Auto Trade when the demo session reaches your selected net-profit target.";
-if(q.includes("stop loss"))return"Stop Loss stops Auto Trade when the demo session reaches your selected maximum loss.";
-if(q.includes("auto"))return"Auto Trade is Demo-only in this version and follows a repeating 3-win / 1-loss simulation.";
-if(q.includes("forex")||q.includes("chart"))return"The dashboard uses a separate Forex-style candlestick terminal. You can switch between several demo currency pairs.";
-if(q.includes("referral"))return"Open Referral to generate, copy or share your personal referral code.";
-if(q.includes("real"))return"The Real account is displayed, but this frontend does not execute real-money trades. Genuine execution needs secure backend infrastructure.";
-return"I can help with the SmartPayout dashboard, Forex demo chart, Auto Trade, Target Profit, Stop Loss, deposits, withdrawals, referrals and support.";
+
+
+if(
+q.includes("deposit")||
+q.includes("mpesa")
+){
+
+return "Deposits have a $10.48 USD minimum. Paystack checkout is connected in test mode. Real-money crediting requires server-side transaction verification.";
+
 }
+
+
+if(q.includes("withdraw")){
+
+return "Withdrawals show the KES amount and disclose the KES 2,000 withdrawal fee before confirmation.";
+
+}
+
+
+if(
+q.includes("target")||
+q.includes("profit")
+){
+
+return "Target Profit stops Auto Trade when the demo session reaches your selected net-profit target.";
+
+}
+
+
+if(q.includes("stop loss")){
+
+return "Stop Loss stops Auto Trade when the demo session reaches your selected maximum loss.";
+
+}
+
+
+if(q.includes("auto")){
+
+return "Auto Trade is Demo-only in this version and follows a repeating 3-win / 1-loss simulation.";
+
+}
+
+
+if(
+q.includes("forex")||
+q.includes("chart")
+){
+
+return "The dashboard uses a separate Forex-style candlestick terminal. You can switch between several demo currency pairs.";
+
+}
+
+
+if(q.includes("referral")){
+
+return "Open Referral to generate, copy or share your personal referral code.";
+
+}
+
+
+if(q.includes("real")){
+
+return "The Real account is displayed, but this frontend does not execute real-money trades. Genuine execution needs secure backend infrastructure.";
+
+}
+
+
+return "I can help with the SmartPayout dashboard, Forex demo chart, Auto Trade, Target Profit, Stop Loss, deposits, withdrawals, referrals and support.";
+
+}
+
 
 /* ================= SUPPORT ================= */
-function openSupport(){openModal("supportModal")}
-async function copySupport(){
-try{await navigator.clipboard.writeText("+1 325-866-1875");showToast("Copied","Support number copied.","success")}
-catch(e){showToast("Support","+1 325-866-1875","info")}
+
+function openSupport(){
+
+openModal("supportModal");
+
 }
+
+
+async function copySupport(){
+
+try{
+
+await navigator.clipboard.writeText(
+"+1 325-866-1875"
+);
+
+showToast(
+"Copied",
+"Support number copied.",
+"success"
+);
+
+}catch(e){
+
+showToast(
+"Support",
+"+1 325-866-1875",
+"info"
+);
+
+}
+
+}
+
 
 /* ================= TOAST ================= */
+
 let toastTimer;
+
+
 function showToast(title,text,type){
-toastTitle.textContent=title;toastText.textContent=text;toast.className="toast show "+type;
-clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove("show"),5000);
+
+document.getElementById("toastTitle").textContent=
+title;
+
+document.getElementById("toastText").textContent=
+text;
+
+let toast=
+document.getElementById("toast");
+
+toast.className=
+"toast show "+
+(type||"info");
+
+clearTimeout(toastTimer);
+
+toastTimer=
+setTimeout(
+()=>{
+toast.classList.remove("show");
+},
+5000
+);
+
 }
 
+
 /* ================= DIGITS ================= */
-document.querySelectorAll(".digit").forEach(x=>x.onclick=()=>{
-document.querySelectorAll(".digit").forEach(y=>y.classList.remove("active"));x.classList.add("active");
+
+document
+.querySelectorAll(".digit")
+.forEach(x=>{
+
+x.onclick=()=>{
+
+document
+.querySelectorAll(".digit")
+.forEach(y=>
+y.classList.remove("active")
+);
+
+x.classList.add("active");
+
+};
+
 });
+
+
+/* ================= INITIAL DISPLAY ================= */
+
+updateDepositKES();
+updateWithdrawKES();
+updateBalance();
+updateSummary();
+
 </script>
 
 </body>
-</html>    
+</html>
+
+Now do this, bro
+
+1. Open your SmartPayout GitHub repository.
+2. Open "index.html".
+3. Delete the old code.
+4. Paste the complete code above.
+5. Find:
+   const PAYSTACK_PUBLIC_KEY = "YOUR_PAYSTACK_PUBLIC_KEY";
+6. Replace only "YOUR_PAYSTACK_PUBLIC_KEY" with your Paystack "pk_test_..." public key.
+7. Save/commit the file.
+8. Open your GitHub Pages SmartPayout site.
+9. Tap Open Platform → Deposit → Continue to Paystack.
+
+This version does not falsely add money to the SmartPayout balance after checkout. Paystack's documentation says a proper payment integration should initialize on the backend and verify the transaction status and amount before delivering value.
+
+So once you confirm the Paystack test popup opens, the next step is the part that makes it genuinely usable: a secure backend that verifies the Paystack payment and then credits the user's SmartPayout balance. That is also where the secret key belongs—not in this GitHub HTML.
