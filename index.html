@@ -3305,10 +3305,7 @@ return;
 }
 
 
-if(
-!PAYSTACK_PUBLIC_KEY ||
-PAYSTACK_PUBLIC_KEY==="YOUR_PAYSTACK_PUBLIC_KEY"
-){
+if(!PAYSTACK_PUBLIC_KEY){
 
 showToast(
 "Paystack key missing",
